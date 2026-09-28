@@ -8,7 +8,7 @@ import { whatsappLink } from "@/lib/whatsapp";
 const needs = ["Piso", "Revestimento", "Materiais de construção", "Acabamentos", "Instalação", "Outro assunto"];
 
 const field =
-  "mt-2 block w-full rounded-lg border-0 bg-green-950/70 px-4 py-3 text-cream-50 ring-1 ring-sand/20 placeholder:text-sand-muted/80 focus:outline-none focus:ring-2 focus:ring-gold-500";
+  "mt-2 block w-full rounded-lg border-0 bg-green-950/70 px-4 py-3 text-cream-50 ring-1 ring-sand/20 placeholder:text-sand-muted/80 focus:outline-none focus:ring-2 focus:ring-gold-400";
 
 /**
  * Formulário sem back-end: monta a mensagem e abre o WhatsApp.
@@ -33,9 +33,9 @@ export function ContactForm() {
   }
 
   return (
-    <div className="drop-deep">
-      <form onSubmit={onSubmit} noValidate className="card-dark chamfer p-6 sm:p-7" aria-describedby="form-nota">
-        <p className="font-display text-xl font-extrabold text-cream-50">Peça seu orçamento</p>
+    <div>
+      <form onSubmit={onSubmit} noValidate className="card-dark rounded-2xl p-6 sm:p-7" aria-describedby="form-nota">
+        <p className="font-display text-xl font-semibold text-cream-50">Peça seu orçamento</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <label className="block text-sm font-semibold text-sand">
             Nome

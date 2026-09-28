@@ -36,20 +36,22 @@ Páginas: `/` (site) e `/design-system` (guia visual vivo, não indexado).
 
 ## Seções
 
-1. **Hero** — fundo verde de marca com padrão de losangos, "Do básico ao
-   acabamento", CTA duplo (Simular ambiente / Falar no WhatsApp), nota 4,8 no
-   Google, 23,1 mil seguidores e imagens em recorte de losango.
+1. **Hero** — fundo verde de marca, "Do básico ao acabamento", CTA principal
+   (Simular ambiente) + WhatsApp, números da loja (4,8 no Google com cerca de
+   1.280 avaliações, 23,1 mil seguidores, showroom 2025) e duas imagens com o
+   selo "Imagem ilustrativa".
 2. **Simulador de ambientes** — sala, cozinha, banheiro e área externa
-   renderizados em 3D; troca de piso e revestimento com transição suave e
-   orçamento da combinação pelo WhatsApp.
-3. **Catálogo filtrável** — categoria, ambiente e faixa de preço; cards com
-   profundidade, hover com zoom e troca para o material aplicado; "Ver no
-   ambiente" abre o produto no simulador.
-4. **A loja** — contadores animados (22 anos, 23,1 mil, 4,8) e diferenciais
-   em cards com selo em losango.
-5. **Avaliações** — nota real do Google em destaque; depoimentos reais apenas
-   via integração (nada inventado); bloco do Instagram.
-6. **Dúvidas** — acordeão em cards.
+   renderizados em 3D, com o selo "Ambiente ilustrativo"; troca de piso e
+   revestimento e orçamento da combinação pelo WhatsApp. No celular a cena
+   fica presa no topo enquanto a pessoa escolhe o material.
+3. **Catálogo filtrável** — categoria, ambiente e faixa de preço; no celular,
+   lista compacta; no computador, hover troca para o material aplicado;
+   "Ver no ambiente" abre o produto no simulador.
+4. **A loja** — os mesmos números do hero (22 anos, 23,1 mil, 4,8), sem
+   animação, e os diferenciais.
+5. **Avaliações** — só a nota agregada do Google; depoimentos reais apenas
+   via integração (nada inventado).
+6. **Dúvidas** — acordeão.
 7. **Contato e rodapé** — telefone, WhatsApp, horário, mapa, formulário que
    abre o WhatsApp e botão flutuante sempre visível.
 
@@ -96,12 +98,25 @@ homografia se aplica.
 
 | O quê | Arquivo |
 | --- | --- |
-| Dados da loja, horário, WhatsApp, redes, `indexable` | `src/content/site.ts` |
+| Dados e **números** da loja, horário, WhatsApp, redes, logo, `indexable` | `src/content/site.ts` |
 | Produtos, preços e faixas de preço | `src/content/products.ts` |
 | Perguntas frequentes | `src/content/faq.ts` |
 | Texturas (tamanho em cm, arquivo real) | `src/content/textures.json` + `public/texturas/` |
 | Cores, fontes, sombras, gradientes | `src/app/globals.css` |
-| Marca (losango com "G") | `src/components/brand/Brand.tsx` |
+| Logo (arquivo) | `public/marca/` + `site.images.logo` |
+| Imagem de compartilhamento (Open Graph) | `npm run og` → `public/og-gigante-dos-pisos.png` |
+
+## SEO e compartilhamento
+
+- **Título:** "Gigante dos Pisos | Pisos, revestimentos e acabamento em
+  Uberlândia – MG"; **descrição:** `site.description` (dados reais da loja).
+- **Open Graph / WhatsApp / redes:** título, descrição e a imagem
+  `public/og-gigante-dos-pisos.png` (logo + números da loja, sem fotos),
+  gerada por `npm run og` a partir de `src/content/site.ts`.
+- **Dados estruturados** (`HomeGoodsStore`): nome, descrição, telefone,
+  cidade, logo e Instagram — só dados confirmados.
+- **Indexação:** enquanto `indexable` for `false`, a página sai com `noindex`
+  e o `robots.txt` bloqueia robôs. Na publicação oficial, mudar para `true`.
 
 ## Avaliações do Google (opcional)
 
@@ -111,8 +126,9 @@ homografia se aplica.
 
 Com as variáveis, o site mostra nota, total e até 3 avaliações públicas reais,
 com autor e link, revalidando uma vez por dia (`src/lib/google-reviews.ts`).
-Sem elas, mostra a nota informada (4,8 / ~1.280) e o bloco do Instagram — nunca
-depoimentos inventados.
+Sem elas, mostra só a nota agregada (4,8 · cerca de 1.280 avaliações) — nunca
+depoimentos inventados. A nota e o total exibidos vêm sempre de
+`src/content/site.ts`, para ficarem iguais em todo o site.
 
 ## Deploy
 
@@ -155,19 +171,19 @@ revalidada a cada 24 h (ISR), suportado nas duas plataformas.
 src/
   app/                 layout, página, /design-system, robots, sitemap, ícone
   components/
-    brand/             losango/marca, rótulos, divisores, selos, títulos de seção
+    brand/             logo, rótulos, caixas de ícone, títulos de seção
     sections/          Hero, SimulatorSection, CatalogSection, Highlights,
                        SocialProof, Faq, Contact
     simulator/         cenas, compositor de camadas e interface do simulador
     catalog/           filtros, grade e card de produto
     layout/            Header, Footer, WhatsApp flutuante
     motion/            Framer Motion, crossfade, scroll reveal
-    ui/                botões, estrelas, contador
+    ui/                botões, estrelas
   content/             dados da loja, produtos, FAQ, texturas, ambientes (JSON)
   lib/                 WhatsApp, texturas, Google Reviews, utilitários
 public/ambientes       camadas renderizadas dos ambientes + hero
 public/texturas        texturas ilustrativas dos produtos
-render/                pipeline de renderização 3D (three.js + sharp)
+render/                pipeline 3D (three.js + sharp), imagens do hero e Open Graph
 scripts/               gerador de texturas
 docs/DESIGN-SYSTEM.md  sistema de design
 ```

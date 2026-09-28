@@ -34,13 +34,13 @@ export function Header() {
       className={cn(
         "sticky top-0 z-40 border-b transition-[background-color,box-shadow,border-color] duration-300",
         scrolled || open
-          ? "border-gold-500/25 bg-green-950/95 shadow-[0_14px_40px_-16px_rgb(5_16_10/0.8)] backdrop-blur-md"
-          : "border-transparent bg-green-900",
+          ? "border-sand/10 bg-green-950/95 shadow-[0_10px_30px_-18px_rgb(5_16_10/0.8)] backdrop-blur-md"
+          : "border-sand/10 bg-green-900",
       )}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/#inicio" className="rounded-md" aria-label={`${site.name} — início`}>
-          <Logo />
+      <div className="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[5.5rem] sm:px-6 lg:px-8">
+        <Link href="/#inicio" className="shrink-0 rounded-md" aria-label={`${site.name} — início`}>
+          <Logo priority className="h-[3.6rem] sm:h-[4.4rem]" />
         </Link>
 
         <nav aria-label="Principal" className="hidden lg:block">
@@ -49,10 +49,10 @@ export function Header() {
               <li key={l.href}>
                 <a
                   href={`/${l.href}`}
-                  className="group relative rounded-md px-3.5 py-2 font-display text-[0.92rem] font-bold text-sand transition-colors hover:text-cream-50"
+                  className="group relative rounded-md px-3.5 py-2 text-[0.95rem] font-medium text-sand transition-colors hover:text-cream-50"
                 >
                   {l.label}
-                  <span className="diamond absolute -bottom-0.5 left-1/2 size-1.5 -translate-x-1/2 scale-0 bg-gold-500 transition-transform duration-200 group-hover:scale-100" />
+                  <span className="absolute inset-x-3.5 -bottom-0.5 h-px origin-left scale-x-0 bg-gold-400 transition-transform duration-200 group-hover:scale-x-100" />
                 </a>
               </li>
             ))}
@@ -62,9 +62,9 @@ export function Header() {
         <div className="flex items-center gap-2">
           <a
             href={site.phone.href}
-            className="hidden items-center gap-2 rounded-md px-3 py-2 font-display text-sm font-bold text-cream-50 hover:text-gold-300 xl:inline-flex"
+            className="hidden items-center gap-2 rounded-md px-3 py-2 text-[0.95rem] font-semibold text-cream-50 hover:text-gold-300 xl:inline-flex"
           >
-            <Phone weight="bold" className="size-5 text-gold-400" aria-hidden="true" />
+            <Phone weight="bold" className="size-5 text-sand-muted" aria-hidden="true" />
             {site.phone.display}
           </a>
           <span className="hidden min-[400px]:block">
@@ -94,7 +94,7 @@ export function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden border-t border-sand/10 lg:hidden"
           >
             <ul className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
@@ -103,9 +103,8 @@ export function Header() {
                   <a
                     href={`/${l.href}`}
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 rounded-md px-3 py-3 font-display text-lg font-bold text-cream-50 hover:bg-green-800"
+                    className="flex items-center rounded-md px-3 py-3 text-lg font-medium text-cream-50 hover:bg-green-800"
                   >
-                    <span className="diamond size-2 bg-gold-500" aria-hidden="true" />
                     {l.label}
                   </a>
                 </li>

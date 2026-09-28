@@ -16,7 +16,9 @@ const shots = [
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 2, reducedMotion: "reduce" });
 await page.goto(base, { waitUntil: "networkidle" });
-await page.addStyleTag({ content: "[data-scene-labels],nextjs-portal{display:none!important}" });
+await page.addStyleTag({
+  content: "[data-scene-labels],[data-scene-badge],nextjs-portal{display:none!important}[data-scene]{border-radius:0!important}",
+});
 const sim = page.locator("#simulador");
 await sim.scrollIntoViewIfNeeded();
 

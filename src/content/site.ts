@@ -7,11 +7,13 @@
  * e está listado em CONTEUDO-PENDENTE.md — substituir antes de publicar.
  */
 
+const yearsInBusiness = 22;
+
 export const site = {
   name: "Gigante dos Pisos",
   tagline: "Do básico ao acabamento",
   description:
-    "Pisos, revestimentos, materiais de construção e acabamento em Uberlândia (MG) há 22 anos. Simule o piso no seu ambiente e fale com a equipe pelo WhatsApp.",
+    `Pisos, revestimentos, materiais de construção e acabamento em Uberlândia (MG) há ${yearsInBusiness} anos. Simule o piso no seu ambiente e peça orçamento pelo WhatsApp.`,
 
   /**
    * Enquanto o conteúdo de exemplo não for substituído, a página fica fora do
@@ -25,7 +27,7 @@ export const site = {
 
   city: "Uberlândia",
   state: "MG",
-  yearsInBusiness: 22,
+  yearsInBusiness,
   showroomRenovatedIn: 2025,
 
   phone: {
@@ -43,16 +45,22 @@ export const site = {
   instagram: {
     handle: "@gigantedospisoss",
     url: "https://www.instagram.com/gigantedospisoss/",
-    followers: 23.1, // em milhares
+    followers: "23,1", // em milhares
     followersLabel: "23,1 mil",
   },
 
   /** Outras redes: preencher apenas com perfis REAIS da loja. */
   otherSocials: [] as { name: string; url: string }[],
 
+  /**
+   * Números da loja — usados em TODO o site (hero, "A loja", avaliações,
+   * metadados). Nunca repetir esses valores à mão nos componentes.
+   */
   google: {
     rating: 4.8,
+    ratingLabel: "4,8",
     reviewCount: 1280, // aproximado
+    reviewCountLabel: "cerca de 1.280 avaliações",
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Gigante%20dos%20Pisos%20Uberl%C3%A2ndia%20MG",
     mapsEmbedUrl:
@@ -75,7 +83,13 @@ export const site = {
   /** Fotos reais (quando existirem) substituem as imagens renderizadas. */
   images: {
     showroom: null as string | null, // ex.: "/fotos/showroom-2025.jpg"
-    logo: null as string | null, // ex.: "/marca/logo.svg" (hoje: losango desenhado no código)
+    /**
+     * Logo usada no cabeçalho, rodapé e compartilhamento. Hoje: recriação em
+     * vetor feita a partir da descrição da marca (ver CONTEUDO-PENDENTE.md).
+     * Para usar o arquivo oficial, salve-o em public/marca/ e troque o caminho
+     * e as proporções abaixo (ex.: "/marca/logo1.png", 400 × 244).
+     */
+    logo: { src: "/marca/logo-gigante-dos-pisos.svg", width: 400, height: 244 },
   },
 } as const;
 

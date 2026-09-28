@@ -11,9 +11,20 @@ reúne tudo o que precisa ser confirmado ou substituído pela Gigante dos Pisos.
 ## Dados já reais (não mexer)
 
 Nome, segmento ("do básico ao acabamento"), Uberlândia – MG, telefone
-(34) 3212-8454, Instagram @gigantedospisoss (~23,1 mil seguidores), 22 anos de
-mercado, nota 4,8 no Google com ~1.280 avaliações, showroom reformado em 2025,
-paleta verde/dourado/vermelho e a mancheta em losango com "G".
+(34) 3212-8454, showroom reformado em 2025 e paleta verde/dourado/vermelho.
+
+**Números da loja — iguais em todo o site** (hero, "A loja", avaliações,
+imagem de compartilhamento). Ficam só em `src/content/site.ts`; nunca
+digitá-los direto nos componentes:
+
+| Dado | Valor |
+| --- | --- |
+| Tempo de mercado | 22 anos em Uberlândia (`yearsInBusiness`) |
+| Instagram | 23,1 mil seguidores, @gigantedospisoss (`instagram`) |
+| Google | nota 4,8 com cerca de 1.280 avaliações (`google`) |
+
+Ao atualizar algum número, rode `npm run og` para refazer a imagem de
+compartilhamento.
 
 ## 1. Valores de EXEMPLO visíveis no site
 
@@ -63,18 +74,18 @@ paleta verde/dourado/vermelho e a mancheta em losango com "G".
 | --- | --- | --- |
 | **Endereço completo e CEP** | O site mostra só "Uberlândia – MG" | Preencher `site.address.street` |
 | **Razão social e CNPJ** | Não aparecem no rodapé | Adicionar ao rodapé (`src/components/layout/Footer.tsx`) |
-| **Depoimentos de clientes** | Só aparecem se a integração com o Google estiver ativa (textos reais, sem edição) | Configurar `GOOGLE_PLACES_API_KEY` e `GOOGLE_PLACE_ID` (ver README) |
-| **Fotos de obras entregues** | Substituídas por um bloco que leva ao Instagram | Fotos reais autorizadas pelos clientes |
+| **Depoimentos de clientes** | A seção de avaliações mostra só a nota agregada (4,8 · cerca de 1.280 avaliações). Não foi possível buscar avaliações do Google neste ambiente, e nenhum depoimento foi escrito à mão | Configurar `GOOGLE_PLACES_API_KEY` e `GOOGLE_PLACE_ID` (ver README): aparecem até 3 avaliações reais de 4–5 estrelas, com autor e link, sem edição |
+| **Fotos de obras entregues** | Não aparecem | Fotos reais autorizadas pelos clientes |
 | **Outras redes sociais** | Só o Instagram | `site.otherSocials` |
 
 ## 3. Imagens que NÃO são da loja
 
 | Imagem | O que é | Substituir por |
 | --- | --- | --- |
-| Hero (losangos com sala e cozinha) | Renders 3D feitos para a demonstração, com produtos do catálogo aplicados | Fotos reais do showroom reformado (`site.images.showroom`) |
-| Ambientes do simulador | Renders 3D de referência (`public/ambientes/`) | Podem continuar como referência; opcionalmente, fotos reais com as mesmas máscaras |
-| Marca (losango com "G") | Desenhada em código a partir da descrição da mancheta | Arquivo oficial do logotipo/mascote (`site.images.logo`) |
-| Ícone do navegador | Mesmo losango | Ícone oficial (`src/app/icon.svg`) |
+| Hero (sala e cozinha) | Renders 3D feitos para a demonstração, com produtos do catálogo aplicados. Levam o selo **"Imagem ilustrativa"** | Fotos reais do showroom reformado (`site.images.showroom`) — o selo some sozinho |
+| Ambientes do simulador | Renders 3D com mobília genérica (`public/ambientes/`). Levam o selo **"Ambiente ilustrativo"** e um aviso logo abaixo | Podem continuar como referência; opcionalmente, fotos reais com as mesmas máscaras |
+| **Logo** (cabeçalho, rodapé, compartilhamento) | **Recriação em vetor** (`public/marca/logo-gigante-dos-pisos.svg`) feita a partir da descrição da marca — G vermelho/amarelo sobre losango verde e faixa "GIGANTE DOS PISOS". O arquivo oficial (`gigantedospisos.com.br/wp-content/uploads/2022/01/logo1.png`) não pôde ser baixado deste ambiente | Salvar o arquivo oficial em `public/marca/` e apontar `site.images.logo` para ele (caminho, largura e altura); depois `npm run og` |
+| Ícone do navegador | Símbolo da mesma recriação (`src/app/icon.svg`) | Recorte do logotipo oficial |
 | Ilustrações de acabamentos (rodapé, rejunte, argamassa, perfil) | Ilustrações genéricas | Fotos dos produtos |
 
 Os modelos 3D usados nos renders são de terceiros, com licença livre (ver `CREDITOS.md`).
@@ -85,6 +96,7 @@ Os modelos 3D usados nos renders são de terceiros, com licença livre (ver `CRE
 - [ ] Horário, WhatsApp, entrega, instalação, pagamento e trocas confirmados
 - [ ] Endereço completo + CEP e o pino oficial no mapa
 - [ ] Razão social e CNPJ no rodapé
-- [ ] Logotipo oficial e fotos reais do showroom
+- [ ] Logotipo oficial no lugar da recriação em vetor + `npm run og`
+- [ ] Fotos reais do showroom
 - [ ] Integração com o Google (avaliações reais) — opcional
 - [ ] `indexable: true` em `src/content/site.ts`

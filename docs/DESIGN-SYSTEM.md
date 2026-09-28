@@ -1,4 +1,4 @@
-# Sistema de design v2 — Gigante dos Pisos
+# Sistema de design v3 — Gigante dos Pisos
 
 Versão viva (com os componentes reais): **`/design-system`**. Tokens definidos
 uma vez em [`src/app/globals.css`](../src/app/globals.css) (`@theme` do
@@ -7,14 +7,23 @@ Tailwind v4) — viram classes como `bg-green-900`, `text-gold-500`,
 
 ## 1. Princípios
 
-1. **Identidade forte, não template.** Verde profundo, dourado e o losango da
-   marca em todo lugar — nada de pastel genérico.
-2. **Contraste entre blocos.** As seções alternam fundo escuro `#123322` e
+1. **Loja estabelecida, não aplicativo.** O público principal tem de 40 a 60
+   anos e está reformando ou construindo. O site precisa passar solidez e
+   confiança: títulos firmes mas sem peso exagerado, poucos efeitos, espaço
+   para respirar.
+2. **A marca aparece na logo.** O losango fica reservado à logo; o resto da
+   página usa cantos arredondados discretos.
+3. **Dourado com parcimônia.** Dourado só no CTA principal (hero e
+   cabeçalho), nas estrelas da nota, no rótulo das seções e em detalhes
+   pequenos (seleção de amostra, palavra de destaque do hero).
+4. **Contraste entre blocos.** As seções alternam fundo escuro `#123322` e
    claro `#FAF6EC`.
-3. **Profundidade real.** Sombras perceptíveis, gradientes sutis, cards que
-   "saem" da página.
-4. **Pronto para o cliente.** Nenhum placeholder ou aviso na interface; o que é
-   exemplo está em `CONTEUDO-PENDENTE.md`.
+5. **Números iguais em todo lugar.** 22 anos, 23,1 mil seguidores, 4,8 com
+   cerca de 1.280 avaliações — sempre lidos de `src/content/site.ts`, sem
+   contagem animada.
+6. **Pronto para o cliente.** Nenhum placeholder na interface; o que é
+   exemplo está em `CONTEUDO-PENDENTE.md`. Imagens que não são da loja levam
+   o selo "Imagem ilustrativa" / "Ambiente ilustrativo".
 
 ## 2. Cores (hex exatos)
 
@@ -22,13 +31,13 @@ Tailwind v4) — viram classes como `bg-green-900`, `text-gold-500`,
 | --- | --- | --- |
 | `green-900` | `#123322` | **Base** — fundo escuro principal (hero, catálogo, avaliações, contato) |
 | `green-800` | `#1E3D28` | Cards sobre fundo escuro |
-| `gold-500` | `#F0B429` | Destaques e CTAs (texto `ink` por cima) |
-| `red-500` | `#C6432A` | Acento do mascote — detalhes pequenos, nunca dominante |
-| `cream-50` | `#FAF6EC` | Fundo claro (simulador, a loja, dúvidas) |
+| `gold-500` | `#F0B429` | CTA principal (texto `ink` por cima) e detalhes pontuais |
+| `red-500` | `#C6432A` | Só na logo |
+| `cream-50` | `#FAF6EC` | Fundo claro (simulador, a loja, dúvidas); botão secundário sobre escuro |
 | `ink` | `#16241C` | Texto escuro sobre claro |
 | `sand` | `#D7CFBB` | Texto claro sobre escuro |
 
-Tons derivados só para gradientes/superfícies: `green-950 #0B2115`,
+Tons derivados só para superfícies: `green-950 #0B2115` (rodapé),
 `green-700/600`, `gold-300/400/600`, `cream-100/200/300`, `sand-muted #AAA38F`,
 `ink-500/600/700`. **Texto dourado sobre creme** usa `gold-800 #8A5F00`
 (contraste ≥ 4,5:1). Nunca branco ou preto puros como fundo.
@@ -39,54 +48,62 @@ Contrastes principais: `sand` sobre `green-900` ≈ 8,9:1 · `ink` sobre
 
 ## 3. Tipografia
 
-- **Títulos:** Poppins **700–800** (`font-display`, `font-bold`/`font-extrabold`).
-- **Texto:** Inter 400–600.
+- **Títulos:** Poppins **600** (`font-display font-semibold`); 500 em
+  detalhes. Sem 700/800 — o peso extremo deixava a página com cara de app
+  infantil.
+- **Texto, menus e rótulos:** Inter 400–600.
 - Nada de fontes arredondadas (Fredoka, Quicksand…).
 
 | Classe | ≥ 1280 px | 390 px | Uso |
 | --- | --- | --- | --- |
-| `text-display-1` | 96 | 44 | H1 do hero |
-| `text-display-2` | 64 | 36 | Números, títulos grandes |
-| `text-display-3` | 44 | 30 | Títulos de seção |
-| `text-display-4` | 32 | 24 | Subtítulos |
-| `text-title` | 24 | 20 | Títulos de card |
+| `text-display-1` | 64 | 38 | H1 do hero |
+| `text-display-2` | 48 | 32 | Números da loja |
+| `text-display-3` | 40 | 28 | Títulos de seção |
+| `text-display-4` | 28 | 22 | Subtítulos |
+| `text-title` | 22 | 19 | Títulos de card |
 
-## 4. O losango
+Rótulo de seção (`Eyebrow`): Inter 600, 13 px, caixa alta com espaçamento,
+precedido de um filete fino.
 
-| Elemento | Classe / componente |
+## 4. Componentes de marca
+
+| Elemento | Componente |
 | --- | --- |
-| Marca (losango dourado com "G" vermelho) | `DiamondMark`, `Logo` |
-| Rótulo de seção com losango vermelho | `Eyebrow` |
-| Divisor linha — ◆ ◆ ◆ — linha | `DiamondDivider` |
-| Ícone dentro de losango dourado | `DiamondBadge` |
-| Recorte de imagem em losango | `.diamond` (clip-path) |
-| Cantos chanfrados em 45° (cards, imagens, painéis) | `.chamfer` (`-sm`, `-lg`) |
-| Padrão de losangos nos fundos escuros | `.pattern-diamonds` |
-
-Como `clip-path` corta a sombra, cards chanfrados usam a sombra no elemento
-pai: `.drop-card` (média) ou `.drop-deep` (forte).
+| Logo (arquivo em `public/marca/`, definido em `site.images.logo`) | `Logo` |
+| Rótulo de seção | `Eyebrow` |
+| Ícone em caixa discreta (8 px de raio) | `IconBox` |
+| Título + rótulo + texto de apoio | `SectionHeading` |
 
 ## 5. Superfícies, sombras e botões
 
-- `.surface-dark` — gradiente `#123322 → #0B2115`.
-- `.card-dark` — gradiente verde + `--shadow-deep`; `.card-light` — gradiente creme + `--shadow-card`.
-- Sombras: `shadow-card`, `shadow-lift`, `shadow-deep` (tons de verde, não preto).
-- Botões (`src/components/ui/Button.tsx`): cantos de 8 px, Poppins 700,
-  gradientes `.btn-gold` (CTA principal), `.btn-green`, `.btn-whatsapp`, além
-  de contornos `outline-dark`/`outline-light`. Sobem 2 px no hover.
+- `.surface-dark` — gradiente sutil `#123322 → #0F2B1C`.
+- `.card-dark` (verde + `--shadow-deep`) e `.card-light` (creme claro +
+  `--shadow-card` + filete de 1 px). Cantos: 16 px (`rounded-2xl`) em cards e
+  imagens, 12 px (`rounded-xl`) em itens de lista, 8 px (`rounded-lg`) em
+  botões e campos.
+- Sombras em tom de verde (nunca preto), presentes mas discretas.
+- Botões (`src/components/ui/Button.tsx`): cores chapadas, Poppins 600,
+  sem "pulo" no hover (só a cor muda).
+  - `gold` — CTA principal (um por bloco, no máximo).
+  - `cream` — secundário sobre fundo escuro ("Ver no ambiente", "Como chegar").
+  - `whatsapp` — verde próprio do WhatsApp.
+  - `outline-light` / `outline-dark` — ações de apoio.
 
 ## 6. Ícones
 
-[Phosphor Icons](https://phosphoricons.com) com `weight="bold"` (ou `fill`
-para estrelas, selos e logotipos). Nunca ícones de traço fino.
+[Phosphor Icons](https://phosphoricons.com) com `weight="bold"` em tamanho
+pequeno, em tons neutros (`sand-muted`, `green-700`); `fill` só para estrelas
+e logos de terceiros.
 
 ## 7. Movimento
 
+Sutil e rápido — o objetivo é parecer refinado, não "cheio de efeito".
+
 | Onde | Técnica | Movimento reduzido / modo leve |
 | --- | --- | --- |
-| Entrada do hero | CSS `animate-rise` | Desligada |
-| Scroll reveal | CSS + `IntersectionObserver` (`data-reveal`) | Tudo visível |
-| Contadores | `requestAnimationFrame` | Valor final direto |
-| Troca de piso/ambiente | Framer Motion (crossfade de camadas) | Só opacidade |
-| Filtros, abas, acordeão | Framer Motion (`layout`, `layoutId`) | Só opacidade |
-| WhatsApp flutuante | Anel pulsante (8 ciclos, com pausa) | Sem anel |
+| Entrada do hero | CSS `animate-rise` (0,55 s, 10 px) | Desligada |
+| Scroll reveal | CSS + `IntersectionObserver` (0,5 s, 12 px) | Tudo visível |
+| Troca de piso/ambiente | Framer Motion (crossfade de camadas, 0,4 s) | Só opacidade |
+| Filtros, abas, acordeão | Framer Motion (`layoutId` sem mola, 0,2–0,3 s) | Só opacidade |
+| Hover dos cards | Troca da amostra pelo material aplicado (só com mouse) | — |
+| WhatsApp flutuante | Anel pulsante (3 ciclos, depois para) | Sem anel |

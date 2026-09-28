@@ -7,7 +7,7 @@ import "./globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["500", "600"],
   variable: "--font-poppins",
   display: "swap",
 });
@@ -18,7 +18,13 @@ const inter = Inter({
   display: "swap",
 });
 
-const title = `${site.name} | Pisos e revestimentos em ${site.city} – ${site.state}`;
+const title = `${site.name} | Pisos, revestimentos e acabamento em ${site.city} – ${site.state}`;
+const ogImage = {
+  url: "/og-gigante-dos-pisos.png",
+  width: 1200,
+  height: 630,
+  alt: `${site.name} — ${site.tagline.toLowerCase()} em ${site.city} – ${site.state}`,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -29,9 +35,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
+    url: "/",
     siteName: site.name,
     title,
     description: site.description,
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: site.description,
+    images: [ogImage.url],
   },
   // Conteúdo de exemplo ainda não substituído → fora do Google (invisível na interface).
   robots: site.indexable ? { index: true, follow: true } : { index: false, follow: false },
@@ -51,6 +65,8 @@ const jsonLd = {
   name: site.name,
   description: site.description,
   url: site.url,
+  logo: new URL(site.images.logo.src, site.url).toString(),
+  image: new URL(ogImage.url, site.url).toString(),
   telephone: "+55 34 3212-8454",
   address: {
     "@type": "PostalAddress",

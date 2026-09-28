@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "textures": "node scripts/generate-textures.mjs"
+    "textures": "node scripts/generate-textures.mjs",
+    "og": "node --experimental-strip-types --no-warnings render/og.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

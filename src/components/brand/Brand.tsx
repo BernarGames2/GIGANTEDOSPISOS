@@ -1,101 +1,55 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
+import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 /**
- * Marca: losango dourado com "G" vermelho. Desenho feito a partir da
- * descrição da mancheta da loja — substituir pelo arquivo oficial quando a
- * loja enviar (site.images.logo).
+ * Logo da loja (arquivo em public/marca, definido em site.images.logo).
+ * A altura é controlada por `className` (ex.: "h-16"); a largura acompanha.
  */
-export function DiamondMark({ className }: { className?: string }) {
+export function Logo({ className, priority }: { className?: string; priority?: boolean }) {
+  const { src, width, height } = site.images.logo;
   return (
-    <svg viewBox="0 0 48 48" className={cn("shrink-0", className)} aria-hidden="true">
-      <defs>
-        <linearGradient id="gp-gold" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#f8d98a" />
-          <stop offset="0.5" stopColor="#f0b429" />
-          <stop offset="1" stopColor="#d89a15" />
-        </linearGradient>
-      </defs>
-      <path d="M24 1.5 46.5 24 24 46.5 1.5 24Z" fill="url(#gp-gold)" />
-      <path d="M24 6.5 41.5 24 24 41.5 6.5 24Z" fill="none" stroke="#c6432a" strokeWidth="2.2" />
-      <text
-        x="24"
-        y="31.2"
-        textAnchor="middle"
-        fontSize="21"
-        fontWeight="800"
-        fill="#c6432a"
-        style={{ fontFamily: "var(--font-display)" }}
-      >
-        G
-      </text>
-    </svg>
+    <Image
+      src={src}
+      alt={site.name}
+      width={width}
+      height={height}
+      priority={priority}
+      unoptimized={src.endsWith(".svg")}
+      className={cn("h-16 w-auto", className)}
+    />
   );
 }
 
-export function Logo({ tone = "dark", className }: { tone?: "dark" | "light"; className?: string }) {
-  return (
-    <span className={cn("inline-flex items-center gap-3", className)}>
-      <DiamondMark className="size-11" />
-      <span className="flex flex-col leading-none">
-        <span
-          className={cn(
-            "font-display text-[1.28rem] font-extrabold uppercase tracking-[-0.01em]",
-            tone === "dark" ? "text-cream-50" : "text-green-900",
-          )}
-        >
-          Gigante
-        </span>
-        <span
-          className={cn(
-            "mt-1 font-display text-[0.66rem] font-bold uppercase tracking-[0.34em]",
-            tone === "dark" ? "text-gold-400" : "text-gold-800",
-          )}
-        >
-          dos Pisos
-        </span>
-      </span>
-    </span>
-  );
-}
-
-/** Rótulo de seção com losango. */
+/** Rótulo curto acima dos títulos de seção. */
 export function Eyebrow({ children, tone = "light", className }: { children: ReactNode; tone?: "light" | "dark"; className?: string }) {
   return (
     <p
       className={cn(
-        "inline-flex items-center gap-2.5 font-display text-xs font-bold uppercase tracking-[0.22em]",
-        tone === "dark" ? "text-gold-400" : "text-gold-800",
+        "inline-flex items-center gap-3 text-[0.8rem] font-semibold uppercase tracking-[0.16em]",
+        tone === "dark" ? "text-gold-300" : "text-gold-800",
         className,
       )}
     >
-      <span className="diamond size-2.5 bg-red-500" aria-hidden="true" />
+      <span className={cn("h-px w-8", tone === "dark" ? "bg-gold-300/60" : "bg-gold-800/50")} aria-hidden="true" />
       {children}
     </p>
   );
 }
 
-/** Divisor: linha — ◆ ◆ ◆ — linha. */
-export function DiamondDivider({ tone = "light", className }: { tone?: "light" | "dark"; className?: string }) {
-  const line = tone === "dark" ? "bg-sand/20" : "bg-green-900/15";
+/** Ícone em uma caixa discreta (substitui os antigos selos em losango). */
+export function IconBox({ children, tone = "light", className }: { children: ReactNode; tone?: "light" | "dark"; className?: string }) {
   return (
-    <div className={cn("flex items-center gap-3", className)} aria-hidden="true">
-      <span className={cn("h-px flex-1", line)} />
-      <span className="diamond size-2 bg-gold-500" />
-      <span className="diamond size-3 bg-red-500" />
-      <span className="diamond size-2 bg-gold-500" />
-      <span className={cn("h-px flex-1", line)} />
-    </div>
-  );
-}
-
-/** Ícone dentro de um losango dourado com sombra. */
-export function DiamondBadge({ children, size = "md", className }: { children: ReactNode; size?: "sm" | "md" | "lg"; className?: string }) {
-  const s = { sm: "size-11", md: "size-14", lg: "size-16" }[size];
-  return (
-    <span className={cn("drop-card relative inline-flex shrink-0 items-center justify-center", s, className)}>
-      <span className="diamond btn-gold absolute inset-0" />
-      <span className="relative text-ink">{children}</span>
+    <span
+      className={cn(
+        "inline-flex size-11 shrink-0 items-center justify-center rounded-lg",
+        tone === "dark" ? "bg-green-950/55 text-gold-300 ring-1 ring-sand/10" : "bg-green-900/[0.06] text-green-800",
+        className,
+      )}
+      aria-hidden="true"
+    >
+      {children}
     </span>
   );
 }
@@ -123,14 +77,14 @@ export function SectionHeading({
       <h2
         id={id}
         className={cn(
-          "mt-4 font-display text-display-3 font-extrabold text-balance",
+          "mt-4 font-display text-display-3 font-semibold text-balance",
           tone === "dark" ? "text-cream-50" : "text-green-900",
         )}
       >
         {title}
       </h2>
       {lead ? (
-        <p className={cn("mt-5 text-lg text-pretty", tone === "dark" ? "text-sand" : "text-ink-600")}>{lead}</p>
+        <p className={cn("mt-4 max-w-2xl text-lg text-pretty", tone === "dark" ? "text-sand" : "text-ink-600")}>{lead}</p>
       ) : null}
     </div>
   );

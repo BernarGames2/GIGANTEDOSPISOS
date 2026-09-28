@@ -44,16 +44,17 @@ export function ProductCard({ product }: { product: Product }) {
   const previewSurface = product.simulate?.[0] ?? (product.category === "revestimento" ? "wall" : "floor");
 
   return (
-    <div className="drop-deep group h-full transition-transform duration-300 ease-out hover:-translate-y-1.5">
-      <article className="card-dark chamfer flex h-full flex-col">
-        <div className="chamfer relative aspect-[4/3] overflow-hidden bg-green-950 [--chamfer:22px]">
+    <div className="group h-full">
+      {/* Celular: miniatura à esquerda (lista compacta). A partir de 480 px: card vertical. */}
+      <article className="card-dark grid h-full grid-cols-[7rem_minmax(0,1fr)] overflow-hidden rounded-2xl ring-1 ring-sand/5 transition-shadow duration-300 group-hover:ring-sand/20 min-[480px]:flex min-[480px]:flex-col">
+        <div className="relative min-h-full overflow-hidden bg-green-950 min-[480px]:aspect-[4/3] min-[480px]:min-h-0">
           {product.texture ? (
             <>
               <div
-                className="absolute inset-0 transition duration-700 ease-out group-hover:scale-110 group-hover:opacity-0"
+                className="absolute inset-0 transition-opacity duration-500 ease-out group-hover:opacity-0"
                 style={swatchStyle(product.texture)}
               />
-              <div className="absolute inset-0 scale-105 opacity-0 transition duration-700 ease-out group-hover:scale-100 group-hover:opacity-100">
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100">
                 <AppliedPreview texture={product.texture} surface={previewSurface} />
               </div>
             </>
@@ -64,26 +65,24 @@ export function ProductCard({ product }: { product: Product }) {
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 25vw, 50vw"
-                className="object-cover transition duration-700 ease-out group-hover:scale-110 group-hover:opacity-0"
+                className="object-cover transition-opacity duration-500 ease-out group-hover:opacity-0"
               />
               <Image
                 src={product.illustration.hoverSrc}
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 25vw, 50vw"
-                className="scale-105 object-cover opacity-0 transition duration-700 ease-out group-hover:scale-100 group-hover:opacity-100"
+                className="object-cover opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
               />
             </>
           ) : null}
-          <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(11_33_21/0.55),transparent_45%)]" />
-          <span className="absolute left-3 top-3 flex items-center gap-1.5 rounded-md bg-green-950/85 px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-gold-400 backdrop-blur-sm">
-            <span className="diamond size-1.5 bg-red-500" aria-hidden="true" />
+          <span className="absolute left-2 top-2 rounded-md bg-green-950/80 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-sand backdrop-blur-sm min-[480px]:left-3 min-[480px]:top-3 min-[480px]:px-2.5 min-[480px]:text-[11px] min-[480px]:tracking-[0.1em]">
             {categorySingular[product.category]}
           </span>
         </div>
 
         <div className="@container flex flex-1 flex-col p-4 sm:p-5">
-          <h3 className="font-display text-[1rem] font-bold leading-snug text-cream-50 sm:text-[1.05rem]">{product.name}</h3>
+          <h3 className="font-display text-[1rem] font-semibold leading-snug text-cream-50 sm:text-[1.05rem]">{product.name}</h3>
           <p className="mt-1 text-sm text-sand">
             {product.format} · {product.finish}
           </p>
@@ -96,10 +95,10 @@ export function ProductCard({ product }: { product: Product }) {
           </p>
 
           <p className="mt-auto pt-5 text-sand">
-            <span className="text-xs uppercase tracking-[0.12em] text-sand-muted">a partir de</span>
-            <span className="block font-display text-2xl font-extrabold leading-tight text-gold-400">
+            <span className="text-xs uppercase tracking-[0.1em] text-sand-muted">a partir de</span>
+            <span className="block font-display text-[1.375rem] font-semibold leading-tight text-cream-50">
               {formatPrice(product.price)}
-              <span className="text-sm font-bold text-sand">/{product.unit}</span>
+              <span className="text-sm font-medium text-sand">/{product.unit}</span>
             </span>
           </p>
 
@@ -108,7 +107,7 @@ export function ProductCard({ product }: { product: Product }) {
               <button
                 type="button"
                 onClick={() => simulate(product.id)}
-                className="btn-gold inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg px-3 font-display text-sm font-bold @[17rem]:flex-1"
+                className="btn-cream inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg px-3 font-display text-sm font-semibold transition-colors @[17rem]:flex-1"
               >
                 <Eye weight="bold" className="size-5" aria-hidden="true" />
                 Ver no ambiente
@@ -119,7 +118,7 @@ export function ProductCard({ product }: { product: Product }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Pedir orçamento de ${product.name} no WhatsApp`}
-              className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border-2 border-sand/30 px-3 font-display text-sm font-bold text-cream-50 transition hover:border-whatsapp hover:bg-whatsapp/15 @[17rem]:flex-1"
+              className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-sand/35 px-3 font-display text-sm font-semibold text-cream-50 transition-colors hover:border-sand/70 hover:bg-cream-50/5 @[17rem]:flex-1"
             >
               <WhatsappLogo weight="bold" className="size-5" />
               Orçar

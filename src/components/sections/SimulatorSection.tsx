@@ -9,7 +9,7 @@ export function SimulatorSection() {
           id="simulador-titulo"
           eyebrow="Simulador de ambientes"
           title="Veja o piso no ambiente antes de comprar"
-          lead="Escolha o ambiente, troque o piso e o revestimento da parede e compare as combinações com luz, sombra e reflexo de verdade."
+          lead="Escolha o ambiente, troque o piso e o revestimento da parede e compare as combinações antes de visitar a loja."
         />
         <Simulator />
       </div>

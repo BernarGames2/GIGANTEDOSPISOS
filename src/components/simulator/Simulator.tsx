@@ -1,10 +1,9 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- miniaturas pequenas e estáticas dos renders */
 
-import { PaintRoller, Scan, WhatsappLogo } from "@phosphor-icons/react";
+import { Info, PaintRoller, WhatsappLogo } from "@phosphor-icons/react";
 import * as m from "motion/react-m";
 import { useEffect, useState } from "react";
-import { DiamondBadge } from "@/components/brand/Brand";
 import { Crossfade } from "@/components/motion/Crossfade";
 import { useCalmMotion } from "@/components/motion/use-lite-mode";
 import { ButtonLink } from "@/components/ui/Button";
@@ -25,6 +24,9 @@ import { sceneAsset, sceneInfo, scenes } from "./scenes";
 import { useSimulatorBridge } from "./SimulatorBridge";
 
 type Choices = Record<Environment, { floor: string; wall: string | null }>;
+
+const disclaimer =
+  "Ambiente ilustrativo com mobília genérica, montado para mostrar os materiais. Cores e tamanhos podem variar em relação à peça real — confira no showroom.";
 
 const initialChoices = () =>
   Object.fromEntries(sceneInfo.map((r) => [r.id, { ...r.defaults }])) as Choices;
@@ -83,23 +85,22 @@ export function Simulator() {
               type="button"
               aria-pressed={active}
               onClick={() => setRoomId(r.id)}
-              className={cn("group w-40 shrink-0 text-left sm:w-auto", active ? "drop-card" : "")}
+              className="group w-40 shrink-0 text-left sm:w-auto"
             >
               <span
                 className={cn(
-                  "chamfer chamfer-sm relative block aspect-[16/10] overflow-hidden p-[3px] transition-colors",
-                  active ? "bg-gold-500" : "bg-cream-200 group-hover:bg-gold-300",
+                  "relative block aspect-[16/10] overflow-hidden rounded-xl ring-offset-2 ring-offset-cream-50 transition",
+                  active ? "ring-2 ring-green-900" : "ring-1 ring-green-900/10 group-hover:ring-green-900/40",
                 )}
               >
-                <img
-                  src={sceneAsset(r.id, "thumb")}
-                  alt=""
-                  loading="lazy"
-                  className="chamfer chamfer-sm size-full object-cover transition duration-500 group-hover:scale-105"
-                />
+                <img src={sceneAsset(r.id, "thumb")} alt="" loading="lazy" className="size-full object-cover" />
               </span>
-              <span className="mt-2.5 flex items-center gap-2 font-display text-sm font-bold text-green-900 sm:text-base">
-                <span className={cn("diamond size-2 transition-colors", active ? "bg-red-500" : "bg-cream-300")} aria-hidden="true" />
+              <span
+                className={cn(
+                  "mt-2.5 block text-sm sm:text-base",
+                  active ? "font-semibold text-green-900" : "font-medium text-ink-600 group-hover:text-green-900",
+                )}
+              >
                 {r.label}
               </span>
             </button>
@@ -108,42 +109,47 @@ export function Simulator() {
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-8">
-        <figure className="drop-deep m-0 min-w-0 lg:sticky lg:top-28 lg:self-start">
+        {/* No celular a cena fica presa no topo enquanto a pessoa escolhe o piso. */}
+        <figure className="sticky top-[5.25rem] z-10 m-0 min-w-0 self-start sm:static lg:sticky lg:top-28">
           <div
-            className="chamfer chamfer-lg relative aspect-[16/10] overflow-hidden bg-green-900"
+            data-scene
+            className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-green-900 shadow-[var(--shadow-lift)]"
             role="img"
             aria-label={`${room.label} com piso ${floorProduct.name} e parede: ${wallName}`}
           >
             <Crossfade
               value={roomId}
-              duration={0.5}
+              duration={0.4}
               render={(id) => <RoomScene room={id} floor={choices[id].floor} wall={choices[id].wall} />}
             />
+            <span
+              data-scene-badge
+              className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md bg-green-950/75 px-2.5 py-1 text-xs font-medium text-sand backdrop-blur-sm sm:left-4 sm:top-4"
+            >
+              <Info weight="bold" className="size-3.5" aria-hidden="true" />
+              Ambiente ilustrativo
+            </span>
             <div data-scene-labels className="absolute inset-x-4 bottom-4 hidden flex-wrap gap-2 text-sm sm:flex">
-              <span className="rounded-md bg-green-950/80 px-3 py-2 text-sand shadow-lg backdrop-blur-sm">
-                <span className="font-display font-bold text-gold-400">Piso</span> · {floorProduct.name}
+              <span className="rounded-md bg-green-950/80 px-3 py-1.5 text-sand backdrop-blur-sm">
+                <span className="font-semibold text-cream-50">Piso:</span> {floorProduct.name}
               </span>
               {hasWalls ? (
-                <span className="rounded-md bg-green-950/80 px-3 py-2 text-sand shadow-lg backdrop-blur-sm">
-                  <span className="font-display font-bold text-gold-400">Parede</span> · {wallName}
+                <span className="rounded-md bg-green-950/80 px-3 py-1.5 text-sand backdrop-blur-sm">
+                  <span className="font-semibold text-cream-50">Parede:</span> {wallName}
                 </span>
               ) : null}
             </div>
           </div>
-          <p className="mt-3 text-sm text-ink-600 sm:sr-only" aria-live="polite">
-            <span className="font-display font-bold text-green-900">Piso:</span> {floorProduct.name}
-            {hasWalls ? (
-              <>
-                {" · "}
-                <span className="font-display font-bold text-green-900">Parede:</span> {wallName}
-              </>
-            ) : null}
+          <p className="sr-only" aria-live="polite">
+            Piso: {floorProduct.name}
+            {hasWalls ? `; parede: ${wallName}` : null}
           </p>
+          <figcaption className="mt-3 hidden text-sm text-ink-500 sm:block">{disclaimer}</figcaption>
         </figure>
 
-        <div className="drop-deep">
-          <div className="card-dark chamfer h-full p-6 sm:p-7">
-            <div role="group" aria-label="Superfície" className="grid grid-cols-2 gap-1 rounded-lg bg-green-950/70 p-1.5">
+        <div>
+          <div className="card-dark h-full rounded-2xl p-6 sm:p-7">
+            <div role="group" aria-label="Superfície" className="grid grid-cols-2 gap-1 rounded-lg bg-green-950/70 p-1">
               {(["floor", "wall"] as const).map((s) => {
                 const active = s === surface;
                 return (
@@ -153,15 +159,15 @@ export function Simulator() {
                     aria-pressed={active}
                     onClick={() => setSurface(s)}
                     className={cn(
-                      "relative rounded-md py-2.5 font-display text-sm font-bold transition-colors",
-                      active ? "text-ink" : "text-sand hover:text-cream-50",
+                      "relative rounded-md py-2.5 text-sm font-semibold transition-colors",
+                      active ? "text-green-900" : "text-sand hover:text-cream-50",
                     )}
                   >
                     {active ? (
                       <m.span
                         layoutId="sim-surface"
-                        transition={{ type: "spring", bounce: 0.15, duration: 0.45 }}
-                        className="btn-gold absolute inset-0 rounded-md"
+                        transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+                        className="absolute inset-0 rounded-md bg-cream-50"
                       />
                     ) : null}
                     <span className="relative">{s === "floor" ? "Piso" : "Parede"}</span>
@@ -170,16 +176,16 @@ export function Simulator() {
               })}
             </div>
 
-            <p className="mt-6 font-display text-sm font-bold uppercase tracking-[0.16em] text-gold-400" id="sim-opcoes">
+            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.14em] text-sand-muted" id="sim-opcoes">
               {surface === "floor" ? "Pisos" : "Revestimentos"} para {environmentLabels[roomId].toLowerCase()}
             </p>
             <m.ul
               key={`${roomId}-${surface}`}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
               aria-labelledby="sim-opcoes"
-              className="mt-4 grid grid-cols-3 gap-x-3 gap-y-4 sm:grid-cols-5 lg:grid-cols-4"
+              className="mt-4 grid grid-cols-3 gap-x-2.5 gap-y-4 min-[360px]:grid-cols-4 sm:grid-cols-5 sm:gap-x-3 lg:grid-cols-4"
             >
               {surface === "wall" ? (
                 <li>
@@ -200,16 +206,16 @@ export function Simulator() {
             </m.ul>
 
             <div className="mt-7 border-t border-sand/15 pt-6">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-sand-muted">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sand-muted">
                 {surface === "floor" ? "Piso escolhido" : "Parede escolhida"}
               </p>
-              <p className="mt-1.5 font-display text-xl font-extrabold text-cream-50">
+              <p className="mt-1.5 font-display text-xl font-semibold text-cream-50">
                 {selected?.name ?? "Pintura lisa (sem revestimento)"}
               </p>
               {selected ? (
                 <p className="mt-1 text-sand">
                   {selected.format} · {selected.finish} ·{" "}
-                  <span className="font-bold text-gold-400">a partir de {formatPrice(selected.price)}/{selected.unit}</span>
+                  <span className="font-semibold text-cream-50">a partir de {formatPrice(selected.price)}/{selected.unit}</span>
                 </p>
               ) : (
                 <p className="mt-1 text-sand">Escolha um revestimento para transformar a parede.</p>
@@ -228,18 +234,7 @@ export function Simulator() {
           </div>
         </div>
       </div>
-
-      <div data-reveal className="card-light chamfer mt-8 flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:p-7">
-        <DiamondBadge>
-          <Scan weight="bold" className="size-6" aria-hidden="true" />
-        </DiamondBadge>
-        <div>
-          <p className="font-display text-lg font-extrabold text-green-900">Em breve: simule na foto do seu ambiente</p>
-          <p className="mt-1 text-ink-600">
-            Envie uma foto do cômodo e veja o piso aplicado com a mesma perspectiva e iluminação usadas aqui.
-          </p>
-        </div>
-      </div>
+      <p className="mt-4 text-sm text-ink-500 sm:hidden">{disclaimer}</p>
     </div>
   );
 }
@@ -259,15 +254,13 @@ function Swatch({
     <button type="button" aria-pressed={active} onClick={onClick} className="group flex w-full flex-col items-center text-center">
       <span
         className={cn(
-          "diamond relative block aspect-square w-[82%] p-[3px] transition duration-300",
-          active ? "bg-gold-500" : "bg-sand/25 group-hover:bg-gold-300",
+          "relative block aspect-square w-full overflow-hidden rounded-lg ring-offset-2 ring-offset-green-800 transition",
+          active ? "ring-2 ring-gold-400" : "ring-1 ring-sand/20 group-hover:ring-sand/60",
         )}
       >
-        <span className="diamond block size-full overflow-hidden transition-transform duration-500 group-hover:scale-[1.04]">
-          {children}
-        </span>
+        {children}
       </span>
-      <span className={cn("mt-2 text-xs leading-snug", active ? "font-bold text-cream-50" : "text-sand")}>{label}</span>
+      <span className={cn("mt-1.5 text-[11px] leading-snug sm:mt-2 sm:text-xs", active ? "font-semibold text-cream-50" : "text-sand")}>{label}</span>
     </button>
   );
 }

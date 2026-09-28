@@ -4,7 +4,7 @@
  * Com as variáveis GOOGLE_PLACES_API_KEY e GOOGLE_PLACE_ID configuradas, o site
  * busca a nota, o total de avaliações e até 5 avaliações públicas da ficha da
  * loja no Google, com revalidação diária. Sem as variáveis (ou em caso de
- * erro), retorna `null` e o site usa os dados fixos + placeholders.
+ * erro), retorna `null` e a seção mostra só a nota agregada de site.ts.
  *
  * As avaliações exibidas são exatamente as retornadas pelo Google, com autor
  * e link de origem — nunca editar ou inventar texto.

@@ -1,18 +1,19 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "gold" | "green" | "whatsapp" | "outline-dark" | "outline-light";
+type Variant = "gold" | "green" | "cream" | "whatsapp" | "outline-dark" | "outline-light";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-lg font-display font-bold tracking-[-0.005em] transition duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-lg font-display font-semibold transition-colors duration-200 ease-out disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
   gold: "btn-gold",
   green: "btn-green",
+  cream: "btn-cream",
   whatsapp: "btn-whatsapp",
-  "outline-dark": "border-2 border-green-900/80 text-green-900 hover:bg-green-900 hover:text-cream-50",
-  "outline-light": "border-2 border-sand/40 text-cream-50 hover:border-gold-400 hover:text-gold-300",
+  "outline-dark": "border border-green-900/35 text-green-900 hover:border-green-900 hover:bg-green-900/5",
+  "outline-light": "border border-sand/35 text-cream-50 hover:border-sand/70 hover:bg-cream-50/5",
 };
 
 const sizes: Record<Size, string> = {
