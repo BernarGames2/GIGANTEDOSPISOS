@@ -1,0 +1,9 @@
+# Deploy na Netlify. O runtime oficial de Next.js (OpenNext) é instalado
+# automaticamente quando a Netlify detecta o framework.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"

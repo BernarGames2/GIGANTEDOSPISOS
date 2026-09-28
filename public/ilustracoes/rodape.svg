@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><!-- Ilustração genérica (não é foto de produto) -->
+<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3eee4"/><stop offset="1" stop-color="#e4dccb"/></linearGradient>
+<linearGradient id="face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e9e6df"/></linearGradient>
+<linearGradient id="top" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdfcf9"/><stop offset="1" stop-color="#d9d4ca"/></linearGradient>
+<filter id="s" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="8"/></filter></defs>
+<rect width="400" height="400" fill="url(#bg)"/>
+<g transform="rotate(-14 200 200)">
+<ellipse cx="205" cy="272" rx="170" ry="14" fill="#5a4a36" opacity=".22" filter="url(#s)"/>
+<rect x="36" y="206" width="330" height="58" rx="3" fill="url(#face)"/><path d="M36 206h330l-4-16H44z" fill="url(#top)"/><path d="M44 190h318" stroke="#cfc9bd" stroke-width="2"/>
+<ellipse cx="205" cy="200" rx="170" ry="12" fill="#5a4a36" opacity=".16" filter="url(#s)"/>
+<rect x="56" y="132" width="318" height="58" rx="3" fill="url(#face)"/><path d="M56 132h318l-4-16H64z" fill="url(#top)"/><path d="M64 116h306" stroke="#cfc9bd" stroke-width="2"/>
+<path d="M56 150h318" stroke="#fff" stroke-opacity=".8" stroke-width="3"/><path d="M36 224h330" stroke="#fff" stroke-opacity=".8" stroke-width="3"/>
+</g></svg>

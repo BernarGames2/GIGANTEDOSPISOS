@@ -1,0 +1,168 @@
+{
+  "$comment": "Texturas ILUSTRATIVAS geradas por scripts/generate-textures.mjs. 'size' = tamanho em cm que um arquivo cobre antes de repetir. Para usar a foto real de um produto (imagem 'seamless'), coloque o arquivo em public/texturas/ e informe 'src' e 'size' reais — o gerador ignora entradas com 'src'.",
+  "porcelanato-acetinado-areia": {
+    "kind": "tiles",
+    "size": [120, 120],
+    "tile": [60, 60],
+    "base": "#d8c8aa",
+    "grout": "#bfae8e",
+    "groutWidth": 0.3,
+    "variance": 0.05,
+    "grain": 0.3,
+    "seed": 11,
+    "cloud": 0.7
+  },
+  "porcelanato-polido-marmorizado": {
+    "kind": "marble",
+    "size": [180, 180],
+    "tile": [90, 90],
+    "base": "#f3f0ea",
+    "vein": "#8d857a",
+    "accent": "#b39766",
+    "grout": "#dcd6cc",
+    "groutWidth": 0.15,
+    "seed": 23
+  },
+  "porcelanato-madeira-freijo": {
+    "kind": "wood",
+    "size": [120, 240],
+    "plank": [20, 120],
+    "palette": ["#9c6b45", "#a4744c", "#8f613d", "#aa7b52", "#956842"],
+    "gap": "#5c3d24",
+    "seed": 5
+  },
+  "vinilico-carvalho-claro": {
+    "kind": "wood",
+    "size": [108, 244],
+    "plank": [18, 122],
+    "palette": ["#cdb089", "#c6a67d", "#d5b994", "#bf9e74", "#cfb28c"],
+    "gap": "#8c7050",
+    "seed": 17
+  },
+  "porcelanato-cimento-grafite": {
+    "kind": "cement",
+    "size": [240, 240],
+    "tile": [120, 120],
+    "base": "#8d8b86",
+    "grout": "#76746f",
+    "groutWidth": 0.25,
+    "seed": 31
+  },
+  "externo-pedra-antiderrapante": {
+    "kind": "stone",
+    "size": [120, 120],
+    "tile": [60, 60],
+    "base": "#b3a58e",
+    "grout": "#8e826f",
+    "groutWidth": 0.6,
+    "seed": 41
+  },
+  "ceramica-esmaltada-cinza": {
+    "kind": "tiles",
+    "size": [90, 90],
+    "tile": [45, 45],
+    "base": "#cfcac1",
+    "grout": "#b1aba0",
+    "groutWidth": 0.4,
+    "variance": 0.06,
+    "grain": 0.25,
+    "seed": 47,
+    "cloud": 0.6
+  },
+  "porcelanato-terrazzo": {
+    "kind": "terrazzo",
+    "size": [120, 120],
+    "tile": [60, 60],
+    "base": "#ece5d8",
+    "grout": "#d6ccb9",
+    "groutWidth": 0.2,
+    "chips": ["#c6432a", "#1e3d28", "#f0b429", "#8a8378", "#2b2b28", "#d9c3a5"],
+    "seed": 53
+  },
+  "ladrilho-hidraulico": {
+    "kind": "hydraulic",
+    "size": [40, 40],
+    "tile": [20, 20],
+    "colors": {
+      "field": "#efe5cf",
+      "primary": "#1e3d28",
+      "secondary": "#c6432a",
+      "tertiary": "#e2a52b"
+    },
+    "grout": "#d7cbb3",
+    "groutWidth": 0.2,
+    "seed": 59
+  },
+  "revestimento-metro-branco": {
+    "kind": "subway",
+    "size": [30, 15],
+    "brick": [15, 7.5],
+    "base": "#f5f3ee",
+    "grout": "#d4cfc5",
+    "groutWidth": 0.3,
+    "seed": 61
+  },
+  "revestimento-metro-verde": {
+    "kind": "subway",
+    "size": [30, 15],
+    "brick": [15, 7.5],
+    "base": "#2f5b42",
+    "grout": "#d9d3c6",
+    "groutWidth": 0.3,
+    "seed": 67
+  },
+  "revestimento-sextavado": {
+    "kind": "hex",
+    "size": [120, 69.28],
+    "radius": 10,
+    "palette": ["#f1efe9", "#f1efe9", "#e4e1da", "#c9c5bc"],
+    "grout": "#b9b4aa",
+    "groutWidth": 0.4,
+    "seed": 71
+  },
+  "revestimento-marmorizado-parede": {
+    "kind": "marble",
+    "size": [120, 120],
+    "tile": [60, 30],
+    "base": "#eeebe5",
+    "vein": "#7b756c",
+    "accent": "#a39b8f",
+    "grout": "#d2ccc2",
+    "groutWidth": 0.2,
+    "seed": 73
+  },
+  "revestimento-acetinado-offwhite": {
+    "kind": "tiles",
+    "size": [180, 120],
+    "tile": [90, 30],
+    "base": "#ece7dd",
+    "grout": "#d5cebf",
+    "groutWidth": 0.25,
+    "variance": 0.025,
+    "grain": 0.2,
+    "seed": 79,
+    "cloud": 0.5
+  },
+  "revestimento-filete-pedra": {
+    "kind": "strips",
+    "size": [60, 30],
+    "palette": ["#b8a88e", "#a39279", "#c9bba3", "#8f8069", "#d3c6b0", "#9b8b73"],
+    "grout": "#6e6252",
+    "seed": 83
+  },
+  "soleira-granito": {
+    "kind": "granite",
+    "size": [40, 40],
+    "base": "#6f6d69",
+    "speckles": ["#1f1e1c", "#e7e3dc", "#a09c95", "#3b3936", "#c7b9a4"],
+    "seed": 89
+  },
+  "externo-deck-madeira": {
+    "kind": "wood",
+    "size": [120, 240],
+    "plank": [20, 120],
+    "palette": ["#7d5a41", "#86624a", "#72523b", "#8d6a50", "#6b4c37"],
+    "gap": "#3f2c1f",
+    "seed": 97
+  }
+}

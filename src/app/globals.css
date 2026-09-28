@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/*
+ * Sistema de design — Gigante dos Pisos
+ * Documentação: docs/DESIGN-SYSTEM.md  ·  Página viva: /design-system
+ */
+@theme {
+  /* Verde da marca (fundos escuros, títulos) */
+  --color-brand-950: #0c1a11;
+  --color-brand-900: #122619;
+  --color-brand-800: #17301f; /* principal */
+  --color-brand-700: #1e3d28; /* secundário */
+  --color-brand-600: #2a5237;
+  --color-brand-500: #3c6b4b;
+  --color-brand-300: #93b09a;
+  --color-brand-200: #bcd0c0;
+  --color-brand-100: #dde8df;
+
+  /* Amarelo/dourado (destaques, CTA principal) */
+  --color-gold-200: #fbe7b0;
+  --color-gold-300: #f7d77f;
+  --color-gold-400: #f4c551;
+  --color-gold-500: #f0b429; /* principal */
+  --color-gold-600: #d69a12;
+  --color-gold-700: #a8760b;
+
+  /* Vermelho do mascote (acento pontual — usar com moderação) */
+  --color-mascot-100: #f6ddd6;
+  --color-mascot-500: #c6432a;
+  --color-mascot-600: #a83621;
+
+  /* Creme (fundos claros) */
+  --color-cream-50: #faf6ec; /* fundo principal */
+  --color-cream-100: #f4eedf;
+  --color-cream-200: #eae1cb;
+  --color-cream-300: #d9ccaf;
+
+  /* Texto */
+  --color-ink-900: #16241c; /* texto principal */
+  --color-ink-700: #34443a;
+  --color-ink-600: #4a5a50;
+  --color-ink-500: #66746b;
+  --color-ink-300: #a9b3ac;
+
+  --color-whatsapp: #1da851;
+  --color-whatsapp-dark: #178f45;
+
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Escala tipográfica: 96 / 64 / 44 / 32 / 24 px a partir de 1280 px; 44 / 36 / 30 / 24 / 20 px em 390 px */
+  --text-display-1: clamp(2.75rem, 1.325rem + 5.84vw, 6rem);
+  --text-display-1--line-height: 1.02;
+  --text-display-1--letter-spacing: -0.035em;
+  --text-display-2: clamp(2.25rem, 1.48rem + 3.15vw, 4rem);
+  --text-display-2--line-height: 1.05;
+  --text-display-2--letter-spacing: -0.03em;
+  --text-display-3: clamp(1.875rem, 1.49rem + 1.57vw, 2.75rem);
+  --text-display-3--line-height: 1.1;
+  --text-display-3--letter-spacing: -0.02em;
+  --text-display-4: clamp(1.5rem, 1.28rem + 0.9vw, 2rem);
+  --text-display-4--line-height: 1.15;
+  --text-display-4--letter-spacing: -0.015em;
+  --text-title: clamp(1.25rem, 1.14rem + 0.45vw, 1.5rem);
+  --text-title--line-height: 1.25;
+  --text-title--letter-spacing: -0.01em;
+
+  --shadow-soft: 0 1px 2px rgb(22 36 28 / 0.06), 0 8px 24px -10px rgb(22 36 28 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(22 36 28 / 0.06), 0 22px 44px -18px rgb(22 36 28 / 0.35);
+  --shadow-gold: 0 10px 30px -10px rgb(240 180 41 / 0.6);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-rise: rise 0.8s var(--ease-out-soft) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wa-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  35%,
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-cream-50);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-400);
+    color: var(--color-ink-900);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-gold-500);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* Conteúdo aguardando confirmação da loja: [assim]. */
+  .ph {
+    background-color: color-mix(in oklab, var(--color-gold-500) 26%, transparent);
+    border-bottom: 1.5px dashed var(--color-gold-700);
+    border-radius: 0.3em;
+    padding-inline: 0.28em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    font-style: normal;
+    color: inherit;
+  }
+
+  .on-dark .ph {
+    background-color: color-mix(in oklab, var(--color-gold-500) 20%, transparent);
+    border-bottom-color: var(--color-gold-400);
+  }
+
+  /* Área reservada para foto real. */
+  .ph-image {
+    background-color: var(--color-cream-100);
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgb(22 36 28 / 0.05) 0 12px,
+      transparent 12px 24px
+    );
+    border: 2px dashed var(--color-cream-300);
+  }
+
+  .on-dark .ph-image {
+    background-color: rgb(255 255 255 / 0.04);
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgb(255 255 255 / 0.05) 0 12px,
+      transparent 12px 24px
+    );
+    border-color: rgb(255 255 255 / 0.2);
+  }
+
+  .wa-ring {
+    animation: wa-ring 4.5s cubic-bezier(0.2, 0.6, 0.3, 1) 2.5s 8;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Scroll reveal (ativado por RevealObserver somente após a hidratação). */
+@media (prefers-reduced-motion: no-preference) {
+  /* Esconder é instantâneo (fora da tela); só a entrada é animada. */
+  .reveal-ready [data-reveal]:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  .reveal-ready [data-reveal].is-revealed {
+    transition:
+      opacity 0.75s var(--ease-out-soft),
+      transform 0.75s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-only,
+  .wa-ring {
+    animation: none !important;
+    display: none;
+  }
+  .animate-rise {
+    animation: none;
+  }
+}
+
+[data-lite] .wa-ring {
+  display: none;
+}

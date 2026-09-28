@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><!-- Ilustração genérica de aplicação -->
+<defs><linearGradient id="al" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9da3a3"/><stop offset=".5" stop-color="#f4f5f5"/><stop offset="1" stop-color="#a9afaf"/></linearGradient></defs>
+<rect width="400" height="400" fill="#d5cfc4"/>
+<g fill="#f3f1ec" stroke="#cbc5b9" stroke-width="3"><rect x="-10" y="-10" width="110" height="110"/><rect x="100" y="-10" width="110" height="110"/><rect x="-10" y="100" width="110" height="110"/><rect x="100" y="100" width="110" height="110"/><rect x="-10" y="210" width="110" height="110"/><rect x="100" y="210" width="110" height="110"/><rect x="-10" y="320" width="110" height="110"/><rect x="100" y="320" width="110" height="110"/></g>
+<g fill="#e7e3da" stroke="#c4bdb0" stroke-width="3"><path d="M226 -10h90l60 30v110l-60-30h-90z"/><path d="M226 100h90l60 30v110l-60-30h-90z"/><path d="M226 210h90l60 30v110l-60-30h-90z"/><path d="M226 320h90l60 30v110l-60-30h-90z"/></g>
+<rect x="210" y="-10" width="16" height="420" fill="url(#al)"/>
+<rect x="226" y="-10" width="10" height="420" fill="#000" opacity=".08"/>
+</svg>

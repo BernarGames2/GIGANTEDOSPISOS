@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><!-- Ilustração genérica (não é foto de produto) -->
+<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3eee4"/><stop offset="1" stop-color="#e4dccb"/></linearGradient>
+<linearGradient id="al" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fafbfb"/><stop offset=".45" stop-color="#c9cdcd"/><stop offset=".55" stop-color="#e3e6e6"/><stop offset="1" stop-color="#9da3a3"/></linearGradient>
+<linearGradient id="al2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f9595"/><stop offset="1" stop-color="#d7dada"/></linearGradient>
+<filter id="s" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="7"/></filter></defs>
+<rect width="400" height="400" fill="url(#bg)"/>
+<g transform="rotate(-20 200 200)">
+<ellipse cx="200" cy="262" rx="170" ry="10" fill="#5a4a36" opacity=".25" filter="url(#s)"/>
+<path d="M30 226h340v26H30z" fill="url(#al)"/><path d="M30 196h14v30H30z" fill="url(#al2)"/><path d="M44 196h326l-8 30H44z" fill="#c4c9c9" opacity=".55"/>
+<ellipse cx="200" cy="182" rx="170" ry="10" fill="#5a4a36" opacity=".18" filter="url(#s)"/>
+<path d="M50 146h330v26H50z" fill="url(#al)"/><path d="M50 116h14v30H50z" fill="url(#al2)"/><path d="M64 116h316l-8 30H64z" fill="#c4c9c9" opacity=".55"/>
+</g></svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><!-- Ilustração genérica de aplicação -->
+<defs><linearGradient id="t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2efe8"/><stop offset="1" stop-color="#dcd7cd"/></linearGradient></defs>
+<rect width="400" height="400" fill="#a9a398"/>
+<g fill="url(#t)"><rect x="-60" y="-60" width="176" height="176" rx="4"/><rect x="124" y="-60" width="176" height="176" rx="4"/><rect x="308" y="-60" width="176" height="176" rx="4"/><rect x="-60" y="124" width="176" height="176" rx="4"/><rect x="124" y="124" width="176" height="176" rx="4"/><rect x="308" y="124" width="176" height="176" rx="4"/><rect x="-60" y="308" width="176" height="176" rx="4"/><rect x="124" y="308" width="176" height="176" rx="4"/><rect x="308" y="308" width="176" height="176" rx="4"/></g>
+<g transform="rotate(-24 250 260)"><rect x="170" y="238" width="170" height="54" rx="10" fill="#e0a82e"/><rect x="170" y="280" width="170" height="14" rx="4" fill="#2b2b28"/><rect x="232" y="196" width="46" height="46" rx="10" fill="#1e3d28"/></g>
+</svg>

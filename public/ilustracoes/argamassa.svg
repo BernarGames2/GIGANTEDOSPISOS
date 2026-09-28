@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><!-- Ilustração genérica (não é foto de produto) -->
+<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3eee4"/><stop offset="1" stop-color="#e4dccb"/></linearGradient>
+<linearGradient id="sack" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c1b1"/><stop offset=".5" stop-color="#e8e2d6"/><stop offset="1" stop-color="#c3baa8"/></linearGradient>
+<filter id="s" x="-30%" y="-50%" width="160%" height="200%"><feGaussianBlur stdDeviation="10"/></filter></defs>
+<rect width="400" height="400" fill="url(#bg)"/>
+<ellipse cx="200" cy="332" rx="140" ry="16" fill="#5a4a36" opacity=".25" filter="url(#s)"/>
+<path d="M78 112q6-26 30-28l184-2q24 2 30 28l12 196q2 22-22 24H88q-24-2-22-24z" fill="url(#sack)"/>
+<path d="M96 96l12 8 12-8 12 8 12-8 12 8 12-8 12 8 12-8 12 8 12-8 12 8 12-8 12 8 12-8 12 8 12-8" fill="none" stroke="#a89f8c" stroke-width="3"/>
+<rect x="84" y="150" width="232" height="120" rx="8" fill="#f0b429"/>
+<rect x="84" y="150" width="232" height="36" rx="8" fill="#17301f"/><rect x="84" y="176" width="232" height="10" fill="#17301f"/>
+<text x="200" y="175" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="20" fill="#faf6ec" letter-spacing="3">ARGAMASSA</text>
+<text x="200" y="232" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="46" fill="#16241c">AC-III</text>
+<text x="200" y="258" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#16241c">uso interno e externo</text>
+</svg>
