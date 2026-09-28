@@ -45,10 +45,13 @@ export function Counter({ value, decimals = 0, duration = 1600 }: { value: numbe
     };
   }, [value, duration, calm]);
 
+  // Com movimento reduzido (detectado só após a hidratação), mostra sempre o valor final.
+  const display = calm ? value : shown;
+
   return (
     <span ref={ref}>
       <span aria-hidden="true" className="tabular-nums">
-        {format(shown, decimals)}
+        {format(display, decimals)}
       </span>
       <span className="sr-only">{format(value, decimals)}</span>
     </span>
