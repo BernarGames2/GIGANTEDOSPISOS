@@ -40,7 +40,7 @@ compartilhamento.
 | **Instalação** (própria ou parceiros, medição) | FAQ e "A loja" | "Instalação contratada junto com o material, com medição" | idem |
 | **Formas de pagamento** | FAQ | Pix, cartões com parcelamento, boleto para empresas | `src/content/faq.ts` |
 | **Política de troca** | FAQ | Produto em perfeito estado, embalagem original e nota fiscal | `src/content/faq.ts` |
-| **Pino do mapa** | Contato | Busca "Gigante dos Pisos, Uberlândia" no Google Maps | `src/content/site.ts` (`google.mapsEmbedUrl`) |
+| **Mapa** | Contato | Mapa ilustrativo (com o selo "Mapa ilustrativo") e o botão "Como chegar", que busca "Gigante dos Pisos Uberlândia MG" no Google Maps | `src/content/site.ts` (`address.street`) — com o endereço preenchido, aparece "Ver mapa aqui", que carrega o mapa real do Google |
 
 ### Preços de exemplo por produto
 

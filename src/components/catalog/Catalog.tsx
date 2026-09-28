@@ -42,10 +42,11 @@ function FilterGroup<T extends string>({
   const id = useId();
   return (
     <div className="min-w-0">
-      <p id={id} className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-sand-muted">
+      <p id={id} className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-ink-500">
         {label}
       </p>
-      <div role="group" aria-labelledby={id} className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+      {/* Quebra em linhas (nada escondido na borda da tela, inclusive no celular). */}
+      <div role="group" aria-labelledby={id} className="flex flex-wrap gap-2">
         {options.map((o) => {
           const active = o.value === value;
           return (
@@ -55,12 +56,12 @@ function FilterGroup<T extends string>({
               aria-pressed={active}
               onClick={() => onChange(o.value)}
               className={cn(
-                "relative shrink-0 rounded-md px-4 py-2 text-sm font-medium transition-colors",
-                active ? "text-green-900" : "bg-green-950/50 text-sand ring-1 ring-sand/15 hover:text-cream-50 hover:ring-sand/40",
+                "relative rounded-md px-3.5 py-2 text-sm font-medium transition-colors sm:px-4",
+                active ? "text-cream-50" : "bg-cream-50 text-ink-700 ring-1 ring-green-900/15 hover:text-green-900 hover:ring-green-900/40",
               )}
             >
               {active ? (
-                <m.span layoutId={`${id}-pill`} transition={{ type: "spring", bounce: 0, duration: 0.3 }} className="absolute inset-0 rounded-md bg-cream-50" />
+                <m.span layoutId={`${id}-pill`} transition={{ type: "spring", bounce: 0, duration: 0.3 }} className="absolute inset-0 rounded-md bg-green-900" />
               ) : null}
               <span className="relative">{o.label}</span>
             </button>
@@ -96,7 +97,7 @@ export function Catalog() {
   return (
     <div className="mt-12 lg:mt-14">
       <div>
-        <div className="card-dark flex flex-col gap-6 rounded-2xl p-5 sm:p-7 lg:flex-row lg:flex-wrap lg:gap-x-12">
+        <div className="card-light flex flex-col gap-6 rounded-2xl p-5 sm:p-7 lg:flex-row lg:flex-wrap lg:gap-x-12">
           <FilterGroup
             label="Categoria"
             value={filters.category}
@@ -125,13 +126,13 @@ export function Catalog() {
       </div>
 
       <div className="mt-8 flex min-h-11 flex-wrap items-center justify-between gap-3">
-        <p className="text-sand" aria-live="polite">
+        <p className="text-ink-600" aria-live="polite">
           {filtered.length === 0
             ? "Nenhum produto encontrado"
             : `Mostrando ${shown.length} de ${filtered.length} ${filtered.length === 1 ? "produto" : "produtos"}`}
         </p>
         {hasFilters ? (
-          <Button variant="outline-light" onClick={reset} className="h-11" icon={<ArrowCounterClockwise weight="bold" className="size-4" aria-hidden="true" />}>
+          <Button variant="outline-dark" onClick={reset} className="h-11" icon={<ArrowCounterClockwise weight="bold" className="size-4" aria-hidden="true" />}>
             Limpar filtros
           </Button>
         ) : null}
@@ -139,16 +140,16 @@ export function Catalog() {
 
       {filtered.length === 0 ? (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }} className="mt-6">
-          <div className="card-dark flex flex-col items-center rounded-2xl px-6 py-16 text-center">
-            <span className="flex size-14 items-center justify-center rounded-full bg-green-950/70 text-sand">
+          <div className="card-light flex flex-col items-center rounded-2xl px-6 py-16 text-center">
+            <span className="flex size-14 items-center justify-center rounded-full bg-green-900/[0.06] text-green-800">
               <MagnifyingGlass weight="bold" className="size-6" aria-hidden="true" />
             </span>
-            <h3 className="mt-5 font-display text-title font-semibold text-cream-50">Nenhum produto com esses filtros</h3>
-            <p className="mt-2 max-w-md text-sand">
+            <h3 className="mt-5 font-display text-title font-semibold text-green-900">Nenhum produto com esses filtros</h3>
+            <p className="mt-2 max-w-md text-ink-600">
               Tente outra combinação — ou fale com a equipe: o mix completo da loja é maior do que esta vitrine.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button variant="outline-light" onClick={reset} icon={<ArrowCounterClockwise weight="bold" className="size-4" aria-hidden="true" />}>
+              <Button variant="outline-dark" onClick={reset} icon={<ArrowCounterClockwise weight="bold" className="size-4" aria-hidden="true" />}>
                 Limpar filtros
               </Button>
               <ButtonLink
@@ -182,12 +183,12 @@ export function Catalog() {
 
       {visible < filtered.length ? (
         <div className="mt-12 flex justify-center">
-          <Button variant="outline-light" size="lg" onClick={() => setVisible((v) => v + PAGE_SIZE)}>
+          <Button variant="outline-dark" size="lg" onClick={() => setVisible((v) => v + PAGE_SIZE)}>
             Carregar mais produtos ({filtered.length - visible})
           </Button>
         </div>
       ) : filtered.length > PAGE_SIZE ? (
-        <p className="mt-12 text-center text-sand-muted">Você viu todos os itens desta seleção.</p>
+        <p className="mt-12 text-center text-ink-500">Você viu todos os itens desta seleção.</p>
       ) : null}
     </div>
   );

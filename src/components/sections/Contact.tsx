@@ -1,7 +1,8 @@
-import { Clock, InstagramLogo, MapPin, NavigationArrow, Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { Clock, InstagramLogo, MapPin, Phone, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import type { ReactNode } from "react";
 import { IconBox, SectionHeading } from "@/components/brand/Brand";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { MapCard } from "@/components/contact/MapCard";
 import { ButtonLink } from "@/components/ui/Button";
 import { site } from "@/content/site";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -66,27 +67,8 @@ export function Contact() {
           </div>
 
           <div data-reveal className="flex flex-col gap-4">
-            <div className="relative min-h-96 flex-1 overflow-hidden rounded-2xl bg-green-800 shadow-[var(--shadow-deep)] ring-1 ring-sand/10 lg:min-h-[36rem]">
-              {/* Fundo exibido enquanto o mapa carrega (ou se o Google estiver indisponível). */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
-                <MapPin weight="bold" className="size-8 text-sand-muted" aria-hidden="true" />
-                <p className="font-display text-xl font-semibold text-cream-50">{site.address.cityLine}</p>
-                <a href={site.google.mapsUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-300 underline-offset-4 hover:underline">
-                  Abrir no Google Maps
-                </a>
-              </div>
-              <iframe
-                title={`Mapa: ${site.name} em ${site.city}`}
-                src={site.google.mapsEmbedUrl}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="absolute inset-0 size-full border-0"
-              />
-            </div>
+            <MapCard />
             <div className="flex flex-wrap gap-3">
-              <ButtonLink href={site.google.mapsUrl} variant="cream" icon={<NavigationArrow weight="bold" className="size-5" aria-hidden="true" />}>
-                Como chegar
-              </ButtonLink>
               <ButtonLink href={site.instagram.url} variant="outline-light" icon={<InstagramLogo weight="bold" className="size-5" />}>
                 {site.instagram.handle}
               </ButtonLink>

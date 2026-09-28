@@ -76,7 +76,7 @@ export function Simulator() {
 
   return (
     <div className="mt-12 lg:mt-14">
-      <div role="group" aria-label="Escolha o ambiente" className="no-scrollbar -mx-4 flex gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:px-0">
+      <div role="group" aria-label="Escolha o ambiente" className="grid grid-cols-4 gap-2 sm:gap-3">
         {sceneInfo.map((r) => {
           const active = r.id === roomId;
           return (
@@ -85,11 +85,11 @@ export function Simulator() {
               type="button"
               aria-pressed={active}
               onClick={() => setRoomId(r.id)}
-              className="group w-40 shrink-0 text-left sm:w-auto"
+              className="group min-w-0 text-left"
             >
               <span
                 className={cn(
-                  "relative block aspect-[16/10] overflow-hidden rounded-xl ring-offset-2 ring-offset-cream-50 transition",
+                  "relative block aspect-[4/3] overflow-hidden rounded-lg ring-offset-2 ring-offset-cream-50 transition sm:aspect-[16/10] sm:rounded-xl",
                   active ? "ring-2 ring-green-900" : "ring-1 ring-green-900/10 group-hover:ring-green-900/40",
                 )}
               >
@@ -97,7 +97,7 @@ export function Simulator() {
               </span>
               <span
                 className={cn(
-                  "mt-2.5 block text-sm sm:text-base",
+                  "mt-2 block text-xs leading-tight sm:mt-2.5 sm:text-base",
                   active ? "font-semibold text-green-900" : "font-medium text-ink-600 group-hover:text-green-900",
                 )}
               >

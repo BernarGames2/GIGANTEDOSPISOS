@@ -46,8 +46,8 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <div className="group h-full">
       {/* Celular: miniatura à esquerda (lista compacta). A partir de 480 px: card vertical. */}
-      <article className="card-dark grid h-full grid-cols-[7rem_minmax(0,1fr)] overflow-hidden rounded-2xl ring-1 ring-sand/5 transition-shadow duration-300 group-hover:ring-sand/20 min-[480px]:flex min-[480px]:flex-col">
-        <div className="relative min-h-full overflow-hidden bg-green-950 min-[480px]:aspect-[4/3] min-[480px]:min-h-0">
+      <article className="card-light grid h-full grid-cols-[7rem_minmax(0,1fr)] overflow-hidden rounded-2xl transition-shadow duration-300 group-hover:shadow-[var(--shadow-lift)] min-[480px]:flex min-[480px]:flex-col">
+        <div className="relative min-h-full overflow-hidden bg-cream-200 min-[480px]:aspect-[4/3] min-[480px]:min-h-0">
           {product.texture ? (
             <>
               <div
@@ -82,23 +82,23 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
 
         <div className="@container flex flex-1 flex-col p-4 sm:p-5">
-          <h3 className="font-display text-[1rem] font-semibold leading-snug text-cream-50 sm:text-[1.05rem]">{product.name}</h3>
-          <p className="mt-1 text-sm text-sand">
+          <h3 className="font-display text-[1rem] font-semibold leading-snug text-green-900 sm:text-[1.05rem]">{product.name}</h3>
+          <p className="mt-1 text-sm text-ink-600">
             {product.format} · {product.finish}
           </p>
           <p className="mt-3 flex flex-wrap gap-1.5">
             {product.environments.map((env) => (
-              <span key={env} className="rounded bg-green-950/60 px-2 py-0.5 text-[11px] font-medium text-sand">
+              <span key={env} className="rounded bg-green-900/[0.06] px-2 py-0.5 text-[11px] font-medium text-ink-700">
                 {environmentLabels[env]}
               </span>
             ))}
           </p>
 
-          <p className="mt-auto pt-5 text-sand">
-            <span className="text-xs uppercase tracking-[0.1em] text-sand-muted">a partir de</span>
-            <span className="block font-display text-[1.375rem] font-semibold leading-tight text-cream-50">
+          <p className="mt-auto pt-5">
+            <span className="text-xs uppercase tracking-[0.1em] text-ink-500">a partir de</span>
+            <span className="block font-display text-[1.375rem] font-semibold leading-tight text-green-900">
               {formatPrice(product.price)}
-              <span className="text-sm font-medium text-sand">/{product.unit}</span>
+              <span className="text-sm font-medium text-ink-600">/{product.unit}</span>
             </span>
           </p>
 
@@ -107,7 +107,7 @@ export function ProductCard({ product }: { product: Product }) {
               <button
                 type="button"
                 onClick={() => simulate(product.id)}
-                className="btn-cream inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg px-3 font-display text-sm font-semibold transition-colors @[17rem]:flex-1"
+                className="btn-green inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg px-3 font-display text-sm font-semibold transition-colors @[17rem]:flex-1"
               >
                 <Eye weight="bold" className="size-5" aria-hidden="true" />
                 Ver no ambiente
@@ -118,7 +118,7 @@ export function ProductCard({ product }: { product: Product }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Pedir orçamento de ${product.name} no WhatsApp`}
-              className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-sand/35 px-3 font-display text-sm font-semibold text-cream-50 transition-colors hover:border-sand/70 hover:bg-cream-50/5 @[17rem]:flex-1"
+              className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-green-900/30 px-3 font-display text-sm font-semibold text-green-900 transition-colors hover:border-green-900 hover:bg-green-900/5 @[17rem]:flex-1"
             >
               <WhatsappLogo weight="bold" className="size-5" />
               Orçar

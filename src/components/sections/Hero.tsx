@@ -1,6 +1,5 @@
-import { ArrowRight, Star, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Star, Storefront, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
-import { Eyebrow } from "@/components/brand/Brand";
 import { ButtonLink } from "@/components/ui/Button";
 import { site } from "@/content/site";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -19,9 +18,11 @@ export function Hero() {
     <section id="inicio" aria-labelledby="hero-titulo" className="surface-dark relative overflow-hidden">
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:grid-cols-[1fr_1.05fr] lg:gap-14 lg:px-8 lg:pb-24 lg:pt-20">
         <div>
-          <Eyebrow tone="dark" className="animate-rise">
-            {site.city} – {site.state} · {site.yearsInBusiness} anos de mercado
-          </Eyebrow>
+          {/* Selo de destaque: o vermelho do mascote como segundo acento da marca. */}
+          <p className="inline-flex animate-rise items-center gap-2 rounded-full bg-red-500 py-1.5 pl-3 pr-4 text-[0.8125rem] font-semibold text-cream-50 shadow-[0_6px_16px_-8px_rgb(198_67_42/0.8)]">
+            <Storefront weight="fill" className="size-4" aria-hidden="true" />
+            Showroom reformado em {site.showroomRenovatedIn}
+          </p>
           <h1
             id="hero-titulo"
             className="mt-5 animate-rise font-display text-display-1 font-semibold text-cream-50 text-balance [animation-delay:60ms]"
@@ -29,8 +30,8 @@ export function Hero() {
             Do básico ao <span className="text-gold-400">acabamento.</span>
           </h1>
           <p className="mt-6 max-w-xl animate-rise text-lg text-sand text-pretty [animation-delay:120ms] sm:text-xl sm:leading-relaxed">
-            Pisos, revestimentos e materiais de construção para a obra inteira, em um só lugar. Veja o piso aplicado
-            no ambiente e fale direto com a equipe da loja.
+            Pisos, revestimentos e materiais de construção para a obra inteira, em {site.city} – {site.state}. Veja o
+            piso aplicado no ambiente e fale direto com a equipe da loja.
           </p>
           <div className="mt-8 flex animate-rise flex-col gap-3 [animation-delay:180ms] sm:flex-row">
             <ButtonLink href="#simulador" size="lg" iconAfter={<ArrowRight weight="bold" className="size-5" aria-hidden="true" />}>
@@ -48,6 +49,11 @@ export function Hero() {
 
           <dl className="mt-10 grid animate-rise grid-cols-1 gap-y-4 border-t border-sand/15 pt-7 [animation-delay:240ms] min-[440px]:grid-cols-3 min-[440px]:divide-x min-[440px]:divide-sand/15">
             <div className="flex items-baseline gap-3 min-[440px]:block min-[440px]:pr-5">
+              <dt className="sr-only">Tempo de mercado</dt>
+              <dd className="font-display text-2xl font-semibold text-cream-50 sm:text-[1.75rem]">{site.yearsInBusiness} anos</dd>
+              <dd className="text-sm text-sand min-[440px]:mt-1">de mercado em {site.city}</dd>
+            </div>
+            <div className="flex items-baseline gap-3 min-[440px]:block min-[440px]:px-5">
               <dt className="sr-only">Nota no Google</dt>
               <dd className="flex items-center gap-1.5 font-display text-2xl font-semibold text-cream-50 sm:text-[1.75rem]">
                 {site.google.ratingLabel}
@@ -60,7 +66,7 @@ export function Hero() {
                 </a>
               </dd>
             </div>
-            <div className="flex items-baseline gap-3 min-[440px]:block min-[440px]:px-5">
+            <div className="flex items-baseline gap-3 min-[440px]:block min-[440px]:pl-5">
               <dt className="sr-only">Instagram</dt>
               <dd className="font-display text-2xl font-semibold text-cream-50 sm:text-[1.75rem]">{site.instagram.followersLabel}</dd>
               <dd className="text-sm text-sand min-[440px]:mt-1">
@@ -68,11 +74,6 @@ export function Hero() {
                   seguidores no Instagram
                 </a>
               </dd>
-            </div>
-            <div className="flex items-baseline gap-3 min-[440px]:block min-[440px]:pl-5">
-              <dt className="sr-only">Showroom</dt>
-              <dd className="font-display text-2xl font-semibold text-cream-50 sm:text-[1.75rem]">{site.showroomRenovatedIn}</dd>
-              <dd className="text-sm text-sand min-[440px]:mt-1">showroom reformado</dd>
             </div>
           </dl>
         </div>

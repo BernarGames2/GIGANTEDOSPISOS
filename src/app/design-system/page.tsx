@@ -19,7 +19,7 @@ const palette: { name: string; hex: string; use: string; dark?: boolean }[] = [
   { name: "green-900", hex: "#123322", use: "Base: fundo escuro principal", dark: true },
   { name: "green-800", hex: "#1E3D28", use: "Cards sobre fundo escuro", dark: true },
   { name: "gold-500", hex: "#F0B429", use: "CTA principal e detalhes pontuais" },
-  { name: "red-500", hex: "#C6432A", use: "Só na marca", dark: true },
+  { name: "red-500", hex: "#C6432A", use: "Segundo acento: logo, selo do hero, pino do mapa", dark: true },
   { name: "cream-50", hex: "#FAF6EC", use: "Fundo claro" },
   { name: "ink", hex: "#16241C", use: "Texto escuro sobre claro", dark: true },
   { name: "sand", hex: "#D7CFBB", use: "Texto claro sobre escuro" },
@@ -65,8 +65,8 @@ export default function DesignSystemPage() {
           <Eyebrow>{site.name}</Eyebrow>
           <h1 className="mt-4 font-display text-display-2 font-semibold text-green-900">Sistema de design</h1>
           <p className="mt-4 max-w-2xl text-lg text-ink-600">
-            Referência viva da identidade: paleta exata da marca, títulos em Poppins 600, dourado reservado ao CTA
-            principal e o losango apenas na logo. Tokens em{" "}
+            Referência viva da identidade: paleta exata da marca (verde, dourado e o vermelho do mascote), títulos em
+            Poppins 600, seções escuras intercaladas com claras e o losango apenas na logo. Tokens em{" "}
             <code className="rounded bg-cream-100 px-1.5">src/app/globals.css</code>.
           </p>
         </div>
@@ -109,6 +109,9 @@ export default function DesignSystemPage() {
             <div className="space-y-8">
               <Logo className="h-32" />
               <Eyebrow tone="dark">Rótulo de seção</Eyebrow>
+              <p className="inline-flex items-center gap-2 rounded-full bg-red-500 py-1.5 pl-3 pr-4 text-[0.8125rem] font-semibold text-cream-50">
+                Selo de destaque (vermelho)
+              </p>
               <div className="flex gap-4">
                 <IconBox tone="dark">
                   <Stack weight="bold" className="size-6" />

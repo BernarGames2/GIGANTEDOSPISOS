@@ -63,11 +63,13 @@ export const site = {
     reviewCountLabel: "cerca de 1.280 avaliações",
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Gigante%20dos%20Pisos%20Uberl%C3%A2ndia%20MG",
-    mapsEmbedUrl:
-      "https://www.google.com/maps?q=Gigante%20dos%20Pisos%2C%20Uberl%C3%A2ndia%20-%20MG&output=embed",
   },
 
-  /** Endereço completo ainda não confirmado: o site mostra só a cidade. */
+  /**
+   * Endereço completo ainda não confirmado: o site mostra só a cidade e um
+   * mapa ilustrativo. Preenchendo `street` (ex.: "Av. Exemplo, 123 — Bairro"),
+   * o cartão do mapa passa a oferecer o mapa real do Google.
+   */
   address: {
     street: null as string | null,
     cityLine: "Uberlândia – MG",

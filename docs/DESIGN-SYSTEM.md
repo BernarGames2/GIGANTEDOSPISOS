@@ -13,11 +13,15 @@ Tailwind v4) — viram classes como `bg-green-900`, `text-gold-500`,
    para respirar.
 2. **A marca aparece na logo.** O losango fica reservado à logo; o resto da
    página usa cantos arredondados discretos.
-3. **Dourado com parcimônia.** Dourado só no CTA principal (hero e
-   cabeçalho), nas estrelas da nota, no rótulo das seções e em detalhes
-   pequenos (seleção de amostra, palavra de destaque do hero).
-4. **Contraste entre blocos.** As seções alternam fundo escuro `#123322` e
-   claro `#FAF6EC`.
+3. **Três cores da marca, com funções diferentes.** Verde é a base; dourado
+   só no CTA principal (hero e cabeçalho), nas estrelas da nota, no rótulo das
+   seções e em detalhes pequenos; o **vermelho do mascote** é o segundo acento,
+   em pontos específicos: a logo, o selo "Showroom reformado em 2025" do hero
+   e o pino do mapa.
+4. **Ritmo claro/escuro.** Nunca mais de 2 seções verde-escuras seguidas sem
+   uma clara entre elas. Ordem atual: hero (escuro) → simulador (creme) →
+   catálogo (creme mais quente, `cream-100`) → a loja (creme) → avaliações
+   (escuro) → dúvidas (creme) → contato + rodapé (escuros).
 5. **Números iguais em todo lugar.** 22 anos, 23,1 mil seguidores, 4,8 com
    cerca de 1.280 avaliações — sempre lidos de `src/content/site.ts`, sem
    contagem animada.
@@ -29,11 +33,12 @@ Tailwind v4) — viram classes como `bg-green-900`, `text-gold-500`,
 
 | Token | Hex | Uso |
 | --- | --- | --- |
-| `green-900` | `#123322` | **Base** — fundo escuro principal (hero, catálogo, avaliações, contato) |
+| `green-900` | `#123322` | **Base** — fundo escuro principal (hero, avaliações, contato) |
 | `green-800` | `#1E3D28` | Cards sobre fundo escuro |
 | `gold-500` | `#F0B429` | CTA principal (texto `ink` por cima) e detalhes pontuais |
-| `red-500` | `#C6432A` | Só na logo |
+| `red-500` | `#C6432A` | Segundo acento: logo, selo de destaque do hero, pino do mapa (texto `cream-50` por cima ≈ 4,6:1) |
 | `cream-50` | `#FAF6EC` | Fundo claro (simulador, a loja, dúvidas); botão secundário sobre escuro |
+| `cream-100` | `#F3ECDC` | Fundo do catálogo (separa das seções creme vizinhas) |
 | `ink` | `#16241C` | Texto escuro sobre claro |
 | `sand` | `#D7CFBB` | Texto claro sobre escuro |
 

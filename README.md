@@ -44,16 +44,18 @@ Páginas: `/` (site) e `/design-system` (guia visual vivo, não indexado).
    renderizados em 3D, com o selo "Ambiente ilustrativo"; troca de piso e
    revestimento e orçamento da combinação pelo WhatsApp. No celular a cena
    fica presa no topo enquanto a pessoa escolhe o material.
-3. **Catálogo filtrável** — categoria, ambiente e faixa de preço; no celular,
-   lista compacta; no computador, hover troca para o material aplicado;
+3. **Catálogo filtrável** — fundo claro; filtros de categoria, ambiente e
+   faixa de preço (quebram em linhas no celular, nada escondido); lista
+   compacta no celular; no computador, hover troca para o material aplicado;
    "Ver no ambiente" abre o produto no simulador.
 4. **A loja** — os mesmos números do hero (22 anos, 23,1 mil, 4,8), sem
    animação, e os diferenciais.
 5. **Avaliações** — só a nota agregada do Google; depoimentos reais apenas
    via integração (nada inventado).
 6. **Dúvidas** — acordeão.
-7. **Contato e rodapé** — telefone, WhatsApp, horário, mapa, formulário que
-   abre o WhatsApp e botão flutuante sempre visível.
+7. **Contato e rodapé** — telefone, WhatsApp, horário, mapa ilustrativo com
+   "Como chegar" (o mapa real do Google entra quando o endereço for
+   confirmado), formulário que abre o WhatsApp e botão flutuante.
 
 ## Como o simulador funciona
 
