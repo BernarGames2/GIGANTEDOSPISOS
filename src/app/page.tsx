@@ -1,7 +1,6 @@
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { PitchBanner } from "@/components/layout/PitchBanner";
 import { CatalogSection } from "@/components/sections/CatalogSection";
 import { Contact } from "@/components/sections/Contact";
 import { Faq } from "@/components/sections/Faq";
@@ -19,11 +18,10 @@ export default async function Home() {
     <>
       <a
         href="#conteudo"
-        className="sr-only z-[60] rounded-full bg-gold-500 px-4 py-2 font-semibold text-ink-900 focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-[60] rounded-lg bg-gold-500 px-4 py-2 font-display font-bold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
         Pular para o conteúdo
       </a>
-      <PitchBanner />
       <Header />
       <SimulatorBridge>
         <main id="conteudo">

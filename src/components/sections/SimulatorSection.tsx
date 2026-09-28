@@ -1,14 +1,15 @@
+import { SectionHeading } from "@/components/brand/Brand";
 import { Simulator } from "@/components/simulator/Simulator";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function SimulatorSection() {
   return (
-    <section id="simulador" aria-labelledby="simulador-titulo" className="bg-cream-100 py-20 sm:py-28">
+    <section id="simulador" aria-labelledby="simulador-titulo" className="relative bg-cream-50 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
+          id="simulador-titulo"
           eyebrow="Simulador de ambientes"
-          title={<span id="simulador-titulo">Veja o piso no ambiente antes de decidir</span>}
-          lead="Escolha um ambiente e troque pisos e revestimentos para comparar estilos lado a lado. É o jeito mais rápido de chegar ao showroom sabendo o que você quer."
+          title="Veja o piso no ambiente antes de comprar"
+          lead="Escolha o ambiente, troque o piso e o revestimento da parede e compare as combinações com luz, sombra e reflexo de verdade."
         />
         <Simulator />
       </div>

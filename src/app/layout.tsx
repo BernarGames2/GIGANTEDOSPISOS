@@ -7,7 +7,7 @@ import "./globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["700", "800"],
   variable: "--font-poppins",
   display: "swap",
 });
@@ -33,18 +33,18 @@ export const metadata: Metadata = {
     title,
     description: site.description,
   },
-  // Enquanto for proposta (com placeholders), a página não deve ser indexada.
-  robots: site.pitchMode ? { index: false, follow: false } : { index: true, follow: true },
+  // Conteúdo de exemplo ainda não substituído → fora do Google (invisível na interface).
+  robots: site.indexable ? { index: true, follow: true } : { index: false, follow: false },
   formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#17301f",
+  themeColor: "#123322",
   width: "device-width",
   initialScale: 1,
 };
 
-// Somente dados confirmados (endereço completo entra quando for confirmado).
+// Somente dados confirmados (endereço completo e horário entram quando confirmados).
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "HomeGoodsStore",

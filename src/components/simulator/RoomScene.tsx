@@ -1,178 +1,141 @@
 "use client";
+/* eslint-disable @next/next/no-img-element -- camadas de composição alinhadas pixel a pixel (tamanho fixo, com blend e máscara); next/image não se aplica */
 
-import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { textureStyle, type TextureId } from "@/lib/textures";
+import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import type { Environment } from "@/content/products";
+import { getProduct } from "@/content/products";
 import { Crossfade } from "@/components/motion/Crossfade";
-import { pointsAttr, SCENE_H, SCENE_W, SURFACE_PX_PER_CM, type Shape } from "./geometry";
-import type { Plane, Room, WallId } from "./rooms";
+import { getTexture, type TextureId } from "@/lib/textures";
+import { rectToQuadTransform, SURFACE_PX_PER_CM } from "./geometry";
+import { sceneAsset, scenes, type LayerName, type ScenePlane } from "./scenes";
 
-function PlaneLayer({ plane, texture, color }: { plane: Plane; texture: TextureId | null; color: string }) {
+/** Textura do produto em escala real, projetada na superfície. */
+function PlaneLayer({ plane, texture }: { plane: ScenePlane; texture: TextureId }) {
+  const t = getTexture(texture);
+  const w = plane.widthCm * SURFACE_PX_PER_CM;
+  const h = plane.heightCm * SURFACE_PX_PER_CM;
   const style: CSSProperties = {
     position: "absolute",
     left: 0,
     top: 0,
-    width: plane.widthCm * SURFACE_PX_PER_CM,
-    height: plane.heightCm * SURFACE_PX_PER_CM,
+    width: w,
+    height: h,
     transformOrigin: "0 0",
-    transform: plane.transform,
-    backgroundColor: color,
-    ...(texture ? { ...textureStyle(texture, SURFACE_PX_PER_CM), backgroundPosition: "0 100%" } : null),
+    transform: rectToQuadTransform(w, h, plane.quad),
+    backgroundImage: `url(${t.src})`,
+    backgroundSize: `${t.widthCm * SURFACE_PX_PER_CM}px ${t.heightCm * SURFACE_PX_PER_CM}px`,
+    backgroundPosition: plane.align,
+    backgroundRepeat: "repeat",
   };
   return <div style={style} />;
 }
 
-function ShapeEl({ s }: { s: Shape }) {
-  switch (s.kind) {
-    case "poly":
-      return <polygon points={pointsAttr(s.pts)} fill={s.fill} opacity={s.opacity} stroke={s.stroke} strokeWidth={s.strokeWidth} />;
-    case "ellipse":
-      return <ellipse cx={s.cx} cy={s.cy} rx={s.rx} ry={s.ry} fill={s.fill} opacity={s.opacity} />;
-    case "line":
-      return <line x1={s.a[0]} y1={s.a[1]} x2={s.b[0]} y2={s.b[1]} stroke={s.stroke} strokeWidth={s.width} opacity={s.opacity} strokeLinecap="round" />;
-    case "rect":
-      return <rect x={s.x} y={s.y} width={s.w} height={s.h} rx={s.rx} fill={s.fill} opacity={s.opacity} stroke={s.stroke} strokeWidth={s.strokeWidth} />;
-  }
-}
-
-const Shapes = ({ list }: { list: Shape[] }) => (
-  <>
-    {list.map((s, i) => (
-      <ShapeEl key={i} s={s} />
-    ))}
-  </>
-);
-
-/** Detalhes estáticos do ambiente: teto, sombreamento, móveis e decoração. */
-function RoomOverlay({ room, gloss }: { room: Room; gloss: number }) {
-  const { floor, back, left, right } = room.planes;
-  const edges: [number, number, number, number][] = [
-    [floor.quad[0][0], floor.quad[0][1], floor.quad[1][0], floor.quad[1][1]],
-    [floor.quad[0][0], floor.quad[0][1], floor.quad[3][0], floor.quad[3][1]],
-    [floor.quad[1][0], floor.quad[1][1], floor.quad[2][0], floor.quad[2][1]],
-    [back.quad[0][0], back.quad[0][1], back.quad[3][0], back.quad[3][1]],
-    [back.quad[1][0], back.quad[1][1], back.quad[2][0], back.quad[2][1]],
-    [back.quad[0][0], back.quad[0][1], back.quad[1][0], back.quad[1][1]],
-  ];
+function Layer({ src, blend, opacity }: { src: string; blend?: CSSProperties["mixBlendMode"]; opacity?: number }) {
   return (
-    <svg
-      className="absolute inset-0"
-      width={SCENE_W}
-      height={SCENE_H}
-      viewBox={`0 0 ${SCENE_W} ${SCENE_H}`}
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="sim-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#a9cfe4" />
-          <stop offset="1" stopColor="#eef4ec" />
-        </linearGradient>
-        <linearGradient id="sim-floor" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#1c1a16" stopOpacity="0.22" />
-          <stop offset="0.45" stopColor="#1c1a16" stopOpacity="0.05" />
-          <stop offset="1" stopColor="#1c1a16" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient id="sim-wall" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#1c1a16" stopOpacity="0.1" />
-          <stop offset="1" stopColor="#1c1a16" stopOpacity="0" />
-        </linearGradient>
-        <radialGradient id="sim-vignette" cx="0.5" cy="0.48" r="0.75">
-          <stop offset="0.6" stopColor="#000" stopOpacity="0" />
-          <stop offset="1" stopColor="#000" stopOpacity="0.28" />
-        </radialGradient>
-        <filter id="sim-blur-s" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="6" />
-        </filter>
-        <filter id="sim-blur-l" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="28" />
-        </filter>
-      </defs>
-
-      <Shapes list={room.layers.ceiling} />
-      <polygon points={pointsAttr(left.quad)} fill="#1c1a16" opacity={0.1} />
-      <polygon points={pointsAttr(right.quad)} fill="#1c1a16" opacity={0.05} />
-      <polygon points={pointsAttr(back.quad)} fill="url(#sim-wall)" />
-      <polygon points={pointsAttr(floor.quad)} fill="url(#sim-floor)" />
-
-      <g filter="url(#sim-blur-s)" opacity={0.35}>
-        {edges.map(([x1, y1, x2, y2], i) => (
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#1c1a16" strokeWidth={9} />
-        ))}
-      </g>
-
-      <Shapes list={room.layers.decor} />
-
-      <g filter="url(#sim-blur-l)" style={{ mixBlendMode: "screen", transition: "opacity .6s ease" }} opacity={0.12 + gloss * 0.5}>
-        <Shapes list={room.sheen} />
-      </g>
-
-      <g filter="url(#sim-blur-s)">
-        <Shapes list={room.layers.shadows} />
-      </g>
-      <Shapes list={room.layers.furniture} />
-
-      <rect width={SCENE_W} height={SCENE_H} fill="url(#sim-vignette)" />
-    </svg>
+    <img
+      src={src}
+      alt=""
+      draggable={false}
+      decoding="async"
+      className="pointer-events-none absolute inset-0 size-full select-none"
+      style={{ mixBlendMode: blend, opacity }}
+    />
   );
 }
 
-const WALLS: WallId[] = ["back", "left", "right"];
+function Masked({ mask, children }: { mask: string; children: ReactNode }) {
+  const m = `url(${mask})`;
+  return (
+    <div
+      className="absolute inset-0"
+      style={{ maskImage: m, WebkitMaskImage: m, maskSize: "100% 100%", WebkitMaskSize: "100% 100%", maskRepeat: "no-repeat" }}
+    >
+      {children}
+    </div>
+  );
+}
 
 /**
- * Cena do simulador. A cena é desenhada em 1000×700 "px de projeto" e
- * escalada para a largura disponível.
+ * Ambiente com o piso/revestimento aplicado. Camadas (de baixo para cima):
+ * render base → parede (textura × sombra + luz) → piso (textura × sombra +
+ * luz + reflexo conforme o brilho) → móveis e objetos (render recortado).
  */
-export function RoomScene({
-  room,
-  floor,
-  wall,
-  gloss,
-}: {
-  room: Room;
-  floor: TextureId;
-  wall: TextureId | null;
-  gloss: number;
-}) {
+export function RoomScene({ room, floor, wall }: { room: Environment; floor: string; wall: string | null }) {
+  const data = scenes[room];
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState<number | null>(null);
+  const [view, setView] = useState<{ scale: number; small: boolean } | null>(null);
 
   useLayoutEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
-    const update = () => setScale(el.clientWidth / SCENE_W);
+    const update = () => {
+      const scale = el.clientWidth / data.width;
+      // Camadas de 960 px quando a cena aparece pequena (celular): menos memória de GPU.
+      setView({ scale, small: el.clientWidth * (window.devicePixelRatio || 1) <= 1150 });
+    };
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [data.width]);
+
+  const small = view?.small ?? false;
+  const src = (layer: LayerName) => sceneAsset(room, layer, small);
 
   return (
-    <div ref={wrapRef} className="absolute inset-0 overflow-hidden" style={{ backgroundColor: room.paint }}>
-      <div
-        className="absolute left-0 top-0 origin-top-left"
-        style={{
-          width: SCENE_W,
-          height: SCENE_H,
-          transform: scale ? `scale(${scale})` : undefined,
-          visibility: scale ? "visible" : "hidden",
-        }}
-      >
-        <Crossfade
-          value={wall}
-          duration={0.55}
-          render={(w) =>
-            WALLS.map((id) => (
-              <PlaneLayer
-                key={id}
-                plane={room.planes[id]}
-                texture={room.wallSurfaces.includes(id) ? w : null}
-                color={room.paint}
-              />
-            ))
-          }
-        />
-        <Crossfade value={floor} duration={0.55} render={(f) => <PlaneLayer plane={room.planes.floor} texture={f} color="#cfc6b6" />} />
-        <RoomOverlay room={room} gloss={gloss} />
-      </div>
+    <div ref={wrapRef} className="absolute inset-0 overflow-hidden bg-green-900">
+      {view ? (
+        <div
+          className="absolute left-0 top-0 origin-top-left"
+          style={{ width: data.width, height: data.height, transform: `scale(${view.scale})` }}
+        >
+          <Layer src={src("beauty")} />
+
+          <Masked mask={src("wall-mask")}>
+            <Crossfade
+              value={wall ?? "pintura"}
+              duration={0.55}
+              render={(id) => {
+                const texture = id === "pintura" ? undefined : getProduct(id)?.texture;
+                if (!texture) return <Layer src={src("beauty")} />;
+                return (
+                  <div className="absolute inset-0 isolate">
+                    {data.wallSurfaces.map((wid) => (
+                      <PlaneLayer key={wid} plane={data.planes[wid]} texture={texture} />
+                    ))}
+                    <Layer src={src("shade")} blend="multiply" />
+                    <Layer src={src("light")} blend="screen" opacity={0.85} />
+                  </div>
+                );
+              }}
+            />
+          </Masked>
+
+          <Masked mask={src("floor-mask")}>
+            <Crossfade
+              value={floor}
+              duration={0.55}
+              render={(id) => {
+                const p = getProduct(id);
+                if (!p?.texture) return <Layer src={src("beauty")} />;
+                const gloss = p.gloss ?? 0.3;
+                return (
+                  <div className="absolute inset-0 isolate">
+                    <PlaneLayer plane={data.planes.floor} texture={p.texture} />
+                    <Layer src={src("shade")} blend="multiply" />
+                    <Layer src={src("light")} blend="screen" opacity={0.9} />
+                    {gloss > 0.05 ? (
+                      <Layer src={src(gloss >= 0.8 ? "refl" : "refl-soft")} blend="screen" opacity={Math.min(1, 0.2 + gloss * 0.8)} />
+                    ) : null}
+                  </div>
+                );
+              }}
+            />
+          </Masked>
+
+          <Layer src={src("fg")} />
+        </div>
+      ) : null}
     </div>
   );
 }

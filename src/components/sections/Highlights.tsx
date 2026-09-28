@@ -1,129 +1,124 @@
-import { Hammer, Layers, Store, Truck, type LucideIcon } from "lucide-react";
-import Image from "next/image";
-import { site } from "@/content/site";
+import { CalendarCheck, InstagramLogo, Stack, Star, Storefront, Truck, Wrench } from "@phosphor-icons/react/dist/ssr";
+import type { ReactNode } from "react";
+import { DiamondBadge, DiamondDivider, SectionHeading } from "@/components/brand/Brand";
 import { Counter } from "@/components/ui/Counter";
-import { InstagramIcon } from "@/components/ui/icons";
-import { PlaceholderImage, WithPlaceholders } from "@/components/ui/Placeholder";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Stars } from "@/components/ui/Stars";
+import { site } from "@/content/site";
 
-const stats = [
+const stats: { value: number; decimals: number; unit: string; label: string; icon: ReactNode; href?: string }[] = [
   {
     value: site.yearsInBusiness,
     decimals: 0,
     unit: "anos",
     label: `de mercado em ${site.city}`,
+    icon: <CalendarCheck weight="bold" className="size-6" />,
   },
   {
     value: site.instagram.followers,
     decimals: 1,
     unit: "mil",
-    label: `seguidores no Instagram (${site.instagram.handle})`,
+    label: `seguidores no Instagram ${site.instagram.handle}`,
+    icon: <InstagramLogo weight="bold" className="size-6" />,
+    href: site.instagram.url,
   },
   {
     value: site.google.rating,
     decimals: 1,
     unit: "★",
-    label: "de avaliação no Google, em cerca de 1.280 avaliações",
+    label: "de nota no Google, em cerca de 1.280 avaliações",
+    icon: <Star weight="fill" className="size-6" />,
+    href: site.google.mapsUrl,
   },
 ];
 
-const features: { icon: LucideIcon; title: string; text: string }[] = [
+const features: { icon: ReactNode; title: string; text: string }[] = [
   {
-    icon: Layers,
+    icon: <Stack weight="bold" className="size-6" />,
     title: "Do básico ao acabamento",
-    text: "Materiais de construção, pisos, revestimentos e acabamentos no mesmo lugar — da base da obra aos detalhes finais.",
+    text: "Materiais de construção, pisos, revestimentos, argamassas, rejuntes e acabamentos em um só lugar.",
   },
   {
-    icon: Truck,
-    title: "Entrega",
-    text: "A entrega faz parte do serviço. [Informar área atendida, prazos e como o frete é calculado.]",
+    icon: <Truck weight="bold" className="size-6" />,
+    title: "Entrega na obra",
+    text: "O material vai até você em Uberlândia e região, com data combinada no orçamento.",
   },
   {
-    icon: Hammer,
+    icon: <Wrench weight="bold" className="size-6" />,
     title: "Instalação",
-    text: "A instalação pode ser combinada junto com o material. [Confirmar se é equipe própria ou parceiros.]",
+    text: "Contrate a instalação junto com o material e resolva a obra com um único orçamento.",
   },
   {
-    icon: Store,
-    title: `Showroom reformado em ${site.showroomRenovatedIn}`,
-    text: "Veja as peças em tamanho real, compare acabamentos lado a lado e tire dúvidas pessoalmente.",
+    icon: <Storefront weight="bold" className="size-6" />,
+    title: `Showroom renovado em ${site.showroomRenovatedIn}`,
+    text: "Veja as peças em tamanho real, compare acabamentos lado a lado e tire dúvidas com a equipe.",
   },
 ];
 
 export function Highlights() {
   return (
-    <section id="diferenciais" aria-labelledby="diferenciais-titulo" className="on-dark relative overflow-hidden bg-brand-800 py-20 text-cream-50 sm:py-28">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-32 bottom-0 size-[30rem] rounded-full bg-brand-500/30 blur-3xl"
-      />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <SectionHeading
-            tone="dark"
-            eyebrow="A loja"
-            title={<span id="diferenciais-titulo">Uma loja para a obra inteira</span>}
-            lead={`Pisos, revestimentos, materiais de construção e de acabamento, com o atendimento de quem está no ramo há ${site.yearsInBusiness} anos em ${site.city}.`}
-          />
-          <div data-reveal className="hidden w-56 lg:block">
-            {site.images.mascot ? (
-              <Image src={site.images.mascot} alt={`Mascote da ${site.name}`} width={224} height={224} className="h-auto w-full" />
-            ) : (
-              <PlaceholderImage
-                label="[mascote da loja]"
-                hint="Arte oficial do mascote (vermelho e amarelo)"
-                className="aspect-square rounded-3xl text-cream-100"
-              />
-            )}
-          </div>
-        </div>
+    <section id="diferenciais" aria-labelledby="diferenciais-titulo" className="relative overflow-hidden bg-cream-50 py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          id="diferenciais-titulo"
+          eyebrow="A loja"
+          title={`${site.yearsInBusiness} anos de ${site.city}, do básico ao acabamento`}
+          lead="Tudo o que a obra precisa em um só lugar, com atendimento de quem acompanha cada etapa — da base ao último rodapé."
+        />
 
-        <ul className="mt-12 grid gap-4 sm:grid-cols-3 lg:mt-16 lg:gap-6">
-          {stats.map((s, i) => (
-            <li
-              key={s.unit}
-              data-reveal
-              style={{ "--reveal-delay": `${i * 110}ms` } as React.CSSProperties}
-              className="rounded-3xl bg-white/[0.06] p-6 ring-1 ring-white/10 backdrop-blur-sm sm:p-7"
-            >
-              <p className="flex items-baseline gap-2 font-display font-extrabold text-gold-400">
-                <span className="text-display-2">
-                  <Counter value={s.value} decimals={s.decimals} />
-                </span>
-                <span className="text-display-4 text-gold-300">{s.unit}</span>
-              </p>
-              <p className="mt-3 text-cream-100/80">{s.label}</p>
-              {s.unit === "★" ? <Stars value={site.google.rating} className="mt-3 text-lg text-gold-400" /> : null}
-              {s.unit === "mil" ? (
-                <a
-                  href={site.instagram.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-300 hover:text-gold-200"
-                >
-                  <InstagramIcon className="size-4" /> Seguir no Instagram
-                </a>
-              ) : null}
-            </li>
-          ))}
+        <ul className="mt-14 grid gap-6 sm:grid-cols-3">
+          {stats.map((s, i) => {
+            const inner = (
+              <>
+                <DiamondBadge size="sm">{s.icon}</DiamondBadge>
+                <p className="mt-6 flex items-baseline gap-2 font-display font-extrabold text-green-900">
+                  <span className="text-display-2">
+                    <Counter value={s.value} decimals={s.decimals} />
+                  </span>
+                  <span className="text-display-4 text-gold-800">{s.unit}</span>
+                </p>
+                <p className="mt-2 text-ink-600">{s.label}</p>
+              </>
+            );
+            return (
+              <li
+                key={s.unit}
+                data-reveal
+                style={{ "--reveal-delay": `${i * 110}ms` } as React.CSSProperties}
+                className="drop-card"
+              >
+                {s.href ? (
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card-light chamfer block h-full p-7 transition-transform duration-300 hover:-translate-y-1"
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div className="card-light chamfer h-full p-7">{inner}</div>
+                )}
+              </li>
+            );
+          })}
         </ul>
 
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <DiamondDivider className="my-16" />
+
+        <ul className="grid gap-x-6 gap-y-12 pt-6 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f, i) => (
             <li
               key={f.title}
               data-reveal
               style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
-              className="rounded-3xl bg-cream-50 p-6 text-ink-900"
+              className="drop-deep relative"
             >
-              <span className="flex size-11 items-center justify-center rounded-2xl bg-gold-500 text-ink-900">
-                <f.icon className="size-5" aria-hidden="true" />
+              <div className="card-dark chamfer h-full px-6 pb-7 pt-12">
+                <h3 className="font-display text-lg font-extrabold text-cream-50">{f.title}</h3>
+                <p className="mt-2.5 text-sand">{f.text}</p>
+              </div>
+              <span className="absolute -top-7 left-6">
+                <DiamondBadge>{f.icon}</DiamondBadge>
               </span>
-              <h3 className="mt-5 font-display text-lg font-semibold text-brand-800">{f.title}</h3>
-              <p className="mt-2 text-sm text-ink-600">
-                <WithPlaceholders text={f.text} />
-              </p>
             </li>
           ))}
         </ul>

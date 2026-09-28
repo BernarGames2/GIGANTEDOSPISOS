@@ -40,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# render 3D (modelos baixados e saídas intermediárias)
+/render/.cache/
+/render/.out/

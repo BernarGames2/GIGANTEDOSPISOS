@@ -1,8 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Ícone provisório: substituir pelo símbolo oficial da marca. -->
-  <rect width="32" height="32" rx="7" fill="#17301f"/>
-  <rect x="5" y="5" width="10" height="10" rx="2" fill="#f0b429"/>
-  <rect x="17" y="5" width="10" height="10" rx="2" fill="#faf6ec"/>
-  <rect x="5" y="17" width="10" height="10" rx="2" fill="#faf6ec"/>
-  <rect x="17" y="17" width="10" height="10" rx="2" fill="#c6432a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Losango com G (mancheta da marca) — substituir pelo ícone oficial quando disponível. -->
+  <rect width="48" height="48" rx="10" fill="#123322"/>
+  <path d="M24 3 45 24 24 45 3 24Z" fill="#f0b429"/>
+  <path d="M24 8 40 24 24 40 8 24Z" fill="none" stroke="#c6432a" stroke-width="2.4"/>
+  <text x="24" y="31" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="20" font-weight="800" fill="#c6432a">G</text>
 </svg>

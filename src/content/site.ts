@@ -1,24 +1,24 @@
 /**
  * Dados da loja — fonte única de verdade do site.
  *
- * REGRA: só entram aqui dados CONFIRMADOS. Tudo o que ainda não foi confirmado
- * pela loja fica entre [colchetes] e aparece destacado no site (ver
- * <Placeholder /> e renderWithPlaceholders). Ao receber o dado real, basta
- * trocar o texto — o destaque some sozinho.
+ * Dados REAIS confirmados: nome, segmento, cidade, telefone, Instagram,
+ * seguidores, 22 anos, nota 4,8 com ~1.280 avaliações e showroom 2025.
+ * Tudo marcado com "EXEMPLO" abaixo é valor ilustrativo para a demonstração
+ * e está listado em CONTEUDO-PENDENTE.md — substituir antes de publicar.
  */
 
 export const site = {
   name: "Gigante dos Pisos",
   tagline: "Do básico ao acabamento",
   description:
-    "Pisos, revestimentos e materiais de acabamento em Uberlândia (MG) há 22 anos. Showroom reformado em 2025.",
+    "Pisos, revestimentos, materiais de construção e acabamento em Uberlândia (MG) há 22 anos. Simule o piso no seu ambiente e fale com a equipe pelo WhatsApp.",
 
   /**
-   * Modo apresentação: mostra a faixa "proposta" no topo e marca a página como
-   * noindex (para que a versão com placeholders não seja indexada pelo Google).
-   * Desligue quando o site for publicado oficialmente.
+   * Enquanto o conteúdo de exemplo não for substituído, a página fica fora do
+   * Google (noindex). Isso não aparece na interface. Mudar para `true` na
+   * publicação oficial.
    */
-  pitchMode: true,
+  indexable: false,
 
   /** URL pública definitiva. Pode ser sobrescrita por NEXT_PUBLIC_SITE_URL. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://gigantedospisos.com.br",
@@ -34,13 +34,9 @@ export const site = {
   },
 
   whatsapp: {
-    /**
-     * [CONFIRMAR] Número de WhatsApp da loja. Provisoriamente usa o telefone
-     * fixo — confirme se ele é WhatsApp Business ou troque pelo número correto
-     * (formato: 55 + DDD + número, só dígitos).
-     */
+    /** EXEMPLO: usa o telefone fixo até a loja confirmar o número de WhatsApp. */
     number: "553432128454",
-    display: "[confirmar número do WhatsApp]",
+    display: "(34) 3212-8454",
     defaultMessage: "Olá! Vim pelo site da Gigante dos Pisos e gostaria de um orçamento.",
   },
 
@@ -57,39 +53,29 @@ export const site = {
   google: {
     rating: 4.8,
     reviewCount: 1280, // aproximado
-    /** Busca no Google Maps pelo nome da loja (substituir pelo link direto da ficha, se preferir). */
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Gigante%20dos%20Pisos%20Uberl%C3%A2ndia%20MG",
-    /** Embed sem chave de API, baseado em busca. Trocar pelo embed oficial da ficha quando disponível. */
     mapsEmbedUrl:
       "https://www.google.com/maps?q=Gigante%20dos%20Pisos%2C%20Uberl%C3%A2ndia%20-%20MG&output=embed",
   },
 
+  /** Endereço completo ainda não confirmado: o site mostra só a cidade. */
   address: {
-    street: "[endereço completo — rua, número e bairro]",
+    street: null as string | null,
     cityLine: "Uberlândia – MG",
-    zip: "[CEP]",
   },
 
+  /** EXEMPLO: horário típico do comércio de materiais — confirmar com a loja. */
   hours: [
-    { days: "Segunda a sexta", time: "[horário]" },
-    { days: "Sábado", time: "[horário]" },
-    { days: "Domingo e feriados", time: "[confirmar]" },
+    { days: "Segunda a sexta", time: "7h30 às 18h" },
+    { days: "Sábado", time: "7h30 às 12h" },
+    { days: "Domingo e feriados", time: "Fechado" },
   ],
 
-  legal: {
-    companyName: "[razão social]",
-    cnpj: "[CNPJ]",
-  },
-
-  /**
-   * Imagens reais. Enquanto forem `null`, o site mostra placeholders
-   * identificados. Coloque os arquivos em /public/fotos e informe o caminho.
-   */
+  /** Fotos reais (quando existirem) substituem as imagens renderizadas. */
   images: {
     showroom: null as string | null, // ex.: "/fotos/showroom-2025.jpg"
-    logo: null as string | null, // ex.: "/marca/logo.svg"
-    mascot: null as string | null, // ex.: "/marca/mascote.png"
+    logo: null as string | null, // ex.: "/marca/logo.svg" (hoje: losango desenhado no código)
   },
 } as const;
 
