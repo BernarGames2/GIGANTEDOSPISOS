@@ -44,3 +44,6 @@ next-env.d.ts
 # render 3D (modelos baixados e saídas intermediárias)
 /render/.cache/
 /render/.out/
+
+# Arquivos temporários do Excel
+planilha/~$*

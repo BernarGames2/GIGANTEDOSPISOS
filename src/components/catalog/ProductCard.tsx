@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useSimulatorBridge } from "@/components/simulator/SimulatorBridge";
 import { categorySingular, environmentLabels, formatPrice, type Product } from "@/content/products";
 import { getTexture, swatchStyle, type TextureId } from "@/lib/textures";
+import { cn } from "@/lib/cn";
 import { whatsappLink } from "@/lib/whatsapp";
 
 /** Segunda imagem (hover): o material aplicado em um mini-ambiente. */
@@ -65,15 +66,20 @@ export function ProductCard({ product }: { product: Product }) {
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 25vw, 50vw"
-                className="object-cover transition-opacity duration-500 ease-out group-hover:opacity-0"
+                className={cn(
+                  "object-cover transition-opacity duration-500 ease-out",
+                  product.illustration.hoverSrc && "group-hover:opacity-0",
+                )}
               />
-              <Image
-                src={product.illustration.hoverSrc}
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 25vw, 50vw"
-                className="object-cover opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
-              />
+              {product.illustration.hoverSrc ? (
+                <Image
+                  src={product.illustration.hoverSrc}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 25vw, 50vw"
+                  className="object-cover opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+                />
+              ) : null}
             </>
           ) : null}
           <span className="absolute left-2 top-2 rounded-md bg-green-950/80 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-sand backdrop-blur-sm min-[480px]:left-3 min-[480px]:top-3 min-[480px]:px-2.5 min-[480px]:text-[11px] min-[480px]:tracking-[0.1em]">

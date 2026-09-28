@@ -2,15 +2,19 @@
   "name": "gigante-dos-pisos",
   "version": "0.1.0",
   "private": true,
-  "description": "Site institucional e comercial da Gigante dos Pisos (Uberlândia/MG) — proposta.",
+  "description": "Site institucional e comercial da Gigante dos Pisos (Uberlândia/MG).",
   "scripts": {
+    "predev": "node scripts/planilha.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/planilha.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "textures": "node scripts/generate-textures.mjs",
-    "og": "node --experimental-strip-types --no-warnings render/og.mjs"
+    "og": "node --experimental-strip-types --no-warnings render/og.mjs",
+    "planilha": "node scripts/planilha.mjs",
+    "planilha:modelo": "node scripts/planilha.mjs modelo"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -27,6 +31,7 @@
     "@types/three": "^0.186.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
+    "exceljs": "^4.4.0",
     "playwright-core": "^1.56.1",
     "sharp": "^0.35.5",
     "tailwindcss": "^4",

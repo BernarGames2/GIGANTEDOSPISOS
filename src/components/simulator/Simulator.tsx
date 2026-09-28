@@ -28,12 +28,24 @@ type Choices = Record<Environment, { floor: string; wall: string | null }>;
 const disclaimer =
   "Ambiente ilustrativo com mobília genérica, montado para mostrar os materiais. Cores e tamanhos podem variar em relação à peça real — confira no showroom.";
 
-const initialChoices = () =>
-  Object.fromEntries(sceneInfo.map((r) => [r.id, { ...r.defaults }])) as Choices;
-
 function optionsFor(room: Environment, surface: Surface) {
   return products.filter((p) => p.texture && p.simulate?.includes(surface) && p.environments.includes(room));
 }
+
+/**
+ * Escolhas iniciais de cada ambiente. Os produtos vêm da planilha: se um
+ * padrão foi retirado (ou não serve para o ambiente), usa o primeiro que serve.
+ */
+const initialChoices = () =>
+  Object.fromEntries(
+    sceneInfo.map((r) => {
+      const floors = optionsFor(r.id, "floor");
+      const walls = optionsFor(r.id, "wall");
+      const floor = floors.find((p) => p.id === r.defaults.floor) ?? floors[0] ?? products.find((p) => p.texture && p.simulate?.includes("floor"));
+      const wall = r.defaults.wall && walls.some((p) => p.id === r.defaults.wall) ? r.defaults.wall : null;
+      return [r.id, { floor: floor?.id ?? "", wall }];
+    }),
+  ) as Choices;
 
 export function Simulator() {
   const { request } = useSimulatorBridge();

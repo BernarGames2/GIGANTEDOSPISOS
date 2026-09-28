@@ -1,6 +1,13 @@
-import textures from "@/content/textures.json";
+import photoTextures from "@/content/produtos-texturas.json";
+import proceduralTextures from "@/content/textures.json";
 
-export type TextureId = Exclude<keyof typeof textures, "$comment">;
+/**
+ * Texturas: as ilustrativas (textures.json, geradas por script) e as fotos
+ * reais das peças cadastradas na planilha (produtos-texturas.json).
+ */
+const textures = { ...proceduralTextures, ...photoTextures } as unknown as Record<string, TextureSpec | undefined>;
+
+export type TextureId = string;
 
 interface TextureSpec {
   size: number[];
@@ -15,7 +22,8 @@ export interface Texture {
 }
 
 export function getTexture(id: TextureId): Texture {
-  const spec = textures[id] as TextureSpec;
+  const spec = textures[id];
+  if (!spec?.size) throw new Error(`Textura desconhecida: ${id}`);
   return {
     src: spec.src ?? `/texturas/${id}.svg`,
     widthCm: spec.size[0],

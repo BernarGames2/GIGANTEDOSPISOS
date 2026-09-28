@@ -30,10 +30,10 @@ compartilhamento.
 
 | Item | Onde aparece | Valor de exemplo | Arquivo |
 | --- | --- | --- | --- |
-| **Preços** de todos os produtos ("a partir de R$ …") | Catálogo e simulador | R$ 18,90 a R$ 189,90 (ver tabela abaixo) | `src/content/products.ts` |
+| **Preços** de todos os produtos ("a partir de R$ …") | Catálogo e simulador | R$ 18,90 a R$ 189,90 (ver tabela abaixo) | `planilha/produtos.xlsx` |
 | **Faixas de preço** do filtro | Catálogo | Até R$ 60 / R$ 60 a 120 / acima de R$ 120 | `src/content/products.ts` (`priceRanges`) |
-| **Produtos** (nomes genéricos, formatos, acabamentos) | Catálogo e simulador | 21 tipos de produto | `src/content/products.ts` |
-| **Texturas/fotos dos produtos** | Catálogo e simulador | Texturas geradas por script | `src/content/textures.json`, `public/texturas/` |
+| **Produtos** (nomes genéricos, formatos, acabamentos) | Catálogo e simulador | 21 tipos de produto | `planilha/produtos.xlsx` |
+| **Texturas/fotos dos produtos** | Catálogo e simulador | Texturas geradas por script ("Imagem ilustrativa" na planilha) | Fotos reais em `public/produtos/` + coluna "Foto da peça" da planilha |
 | **Horário de funcionamento** | Contato | Seg–sex 7h30–18h · Sáb 7h30–12h · Dom. fechado | `src/content/site.ts` (`hours`) |
 | **Número de WhatsApp** | Botões de WhatsApp | Usa o fixo (34) 3212-8454 — confirmar se é WhatsApp Business | `src/content/site.ts` (`whatsapp`) |
 | **Entrega** (área atendida, frete, prazos) | FAQ e "A loja" | "Uberlândia e região; frete e data combinados no orçamento" | `src/content/faq.ts`, `src/components/sections/Highlights.tsx` |
@@ -92,7 +92,7 @@ Os modelos 3D usados nos renders são de terceiros, com licença livre (ver `CRE
 
 ## Antes de publicar — checklist
 
-- [ ] Preços, produtos e texturas reais (ou retirar o preço dos cards)
+- [ ] Preços, produtos e fotos reais na planilha `planilha/produtos.xlsx` (ou retirar o preço dos cards)
 - [ ] Horário, WhatsApp, entrega, instalação, pagamento e trocas confirmados
 - [ ] Endereço completo + CEP e o pino oficial no mapa
 - [ ] Razão social e CNPJ no rodapé

@@ -101,12 +101,48 @@ homografia se aplica.
 | O quê | Arquivo |
 | --- | --- |
 | Dados e **números** da loja, horário, WhatsApp, redes, logo, `indexable` | `src/content/site.ts` |
-| Produtos, preços e faixas de preço | `src/content/products.ts` |
+| **Produtos, preços, fotos e o que entra no simulador** | **`planilha/produtos.xlsx`** (ver abaixo) |
+| Faixas de preço do filtro | `src/content/products.ts` (`priceRanges`) |
 | Perguntas frequentes | `src/content/faq.ts` |
 | Texturas (tamanho em cm, arquivo real) | `src/content/textures.json` + `public/texturas/` |
 | Cores, fontes, sombras, gradientes | `src/app/globals.css` |
 | Logo (arquivo) | `public/marca/` + `site.images.logo` |
 | Imagem de compartilhamento (Open Graph) | `npm run og` → `public/og-gigante-dos-pisos.png` |
+
+## Produtos: a planilha
+
+O catálogo e o simulador são gerados a partir de **`planilha/produtos.xlsx`**
+(abre no Excel, LibreOffice ou Google Planilhas). Uma linha por produto:
+mostrar no site (Sim/Não), nome, categoria, formato, acabamento, preço "a
+partir de", unidade, ambientes (Sim/Não), simulador (Piso/Parede/Piso e
+parede/Não), foto da peça e imagem ilustrativa. As colunas têm listas
+suspensas e a aba **"Como preencher"** explica cada uma.
+
+**Para atualizar o site (sem mexer em código):**
+
+1. Edite a planilha e salve como `.xlsx`.
+2. Fotos das peças: salve em `public/produtos/` e escreva o nome do arquivo
+   na coluna "Foto da peça". Use a foto de **uma** peça, de frente; com o
+   formato preenchido (ex.: `60 × 60 cm`), o simulador aplica a foto no
+   tamanho real.
+3. No GitHub: **Add file → Upload files**, envie a planilha para
+   `planilha/produtos.xlsx` (e as fotos para `public/produtos/`) →
+   **Commit changes**.
+4. A Netlify/Vercel publica de novo sozinha. Antes do build, `npm run
+   planilha` confere tudo e gera `src/content/produtos.json` (+
+   `produtos-texturas.json` para as fotos). **Se houver erro, o build para,
+   o site no ar continua como estava** e o log do deploy mostra a linha e o
+   que corrigir, por exemplo:
+
+   ```
+   planilha/produtos.xlsx tem problemas — o catálogo NÃO foi atualizado:
+     • Linha 23 (Porcelanato acetinado grafite): foto "grafite60x60.jpg" não encontrada em public/produtos/.
+   ```
+
+Comandos: `npm run planilha` (confere e gera o catálogo; roda sozinho antes
+de `dev` e `build`) · `npm run planilha:modelo -- --forcar` (recria a
+planilha a partir do catálogo atual). Não edite `produtos.json` à mão — ele é
+sobrescrito pela planilha.
 
 ## SEO e compartilhamento
 
@@ -186,6 +222,8 @@ src/
 public/ambientes       camadas renderizadas dos ambientes + hero
 public/texturas        texturas ilustrativas dos produtos
 render/                pipeline 3D (three.js + sharp), imagens do hero e Open Graph
-scripts/               gerador de texturas
+scripts/               planilha → catálogo (planilha.mjs) e gerador de texturas
+planilha/produtos.xlsx catálogo editado pela loja
+public/produtos        fotos reais das peças (citadas na planilha)
 docs/DESIGN-SYSTEM.md  sistema de design
 ```
